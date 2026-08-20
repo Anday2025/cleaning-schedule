@@ -1,0 +1,566 @@
+/* ========================================
+   GENERAL
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+    background: #f4f6f8;
+
+    color: #1f2933;
+
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+header {
+
+    background: #1f2937;
+
+    color: white;
+
+    padding: 25px 20px;
+
+}
+
+
+.header-content {
+
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+}
+
+
+.header-text {
+
+    min-width: 0;
+
+}
+
+
+header h1 {
+
+    margin: 0;
+
+    font-size: 28px;
+
+}
+
+
+header p {
+
+    margin: 5px 0 0;
+
+    opacity: 0.85;
+
+}
+
+
+/* ========================================
+   LANGUAGE BUTTON
+======================================== */
+
+.language-container {
+
+    position: relative;
+
+    flex-shrink: 0;
+
+}
+
+
+.language-button {
+
+    border: none;
+
+    background: white;
+
+    color: #1f2937;
+
+    padding: 10px 15px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+.language-button:hover {
+
+    background: #e5e7eb;
+
+}
+
+
+/* ========================================
+   LANGUAGE MENU
+======================================== */
+
+.language-menu {
+
+    display: none;
+
+    position: absolute;
+
+    right: 0;
+
+    top: calc(100% + 8px);
+
+    width: 230px;
+
+    max-height: 430px;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow:
+            0 8px 25px
+            rgba(0, 0, 0, 0.18);
+
+    padding: 6px;
+
+    z-index: 1000;
+
+}
+
+
+.language-menu.open {
+
+    display: block;
+
+}
+
+
+.language-menu button {
+
+    display: block;
+
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    color: #1f2937;
+
+    text-align: left;
+
+    padding: 9px 12px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+}
+
+
+.language-menu button:hover {
+
+    background: #f1f5f9;
+
+}
+
+
+/* ========================================
+   MAIN
+======================================== */
+
+main {
+
+    max-width: 900px;
+
+    margin: 30px auto;
+
+    padding: 0 20px;
+
+}
+
+
+/* ========================================
+   SECTIONS
+======================================== */
+
+section {
+
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 22px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+            0 2px 8px
+            rgba(0, 0, 0, 0.06);
+
+}
+
+
+section h2 {
+
+    margin-top: 0;
+
+}
+
+
+/* ========================================
+   CURRENT CLEANING
+======================================== */
+
+.cleaning-info p {
+
+    margin: 8px 0;
+
+}
+
+
+/* ========================================
+   WEEK NAVIGATION
+======================================== */
+
+.week-navigation {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.week-navigation button {
+
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 10px 16px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+}
+
+
+.week-navigation button:hover {
+
+    background: #1d4ed8;
+
+}
+
+
+.week-navigation button:disabled {
+
+    background: #cbd5e1;
+
+    cursor: not-allowed;
+
+}
+
+
+.week-information {
+
+    text-align: center;
+
+    flex: 1;
+
+}
+
+
+#weekNumber {
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+}
+
+
+#weekRange {
+
+    margin-top: 3px;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+}
+
+
+/* ========================================
+   SCHEDULE
+======================================== */
+
+.schedule-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 10px;
+
+    padding: 16px;
+
+}
+
+
+.schedule-item strong {
+
+    font-size: 16px;
+
+}
+
+
+.schedule-item p {
+
+    margin: 5px 0;
+
+}
+
+
+.schedule-item small {
+
+    color: #64748b;
+
+}
+
+
+.schedule-status {
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+/* ========================================
+   TASKS
+======================================== */
+
+.tasks label {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    padding: 10px 0;
+
+    cursor: pointer;
+
+    gap: 8px;
+
+}
+
+
+.tasks input {
+
+    margin-top: 4px;
+
+    flex-shrink: 0;
+
+    transform: scale(1.15);
+
+}
+
+
+/* ========================================
+   COMPLETE BUTTON
+======================================== */
+
+#completeButton {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 0 auto 30px;
+
+    padding: 14px 20px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #16a34a;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+}
+
+
+#completeButton:hover {
+
+    background: #15803d;
+
+}
+
+
+#completeButton.completed {
+
+    background: #64748b;
+
+    cursor: default;
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 650px) {
+
+    header {
+
+        padding: 20px 15px;
+
+    }
+
+
+    .header-content {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        text-align: center;
+
+    }
+
+
+    .language-container {
+
+        display: flex;
+
+        justify-content: center;
+
+    }
+
+
+    .language-menu {
+
+        left: 50%;
+
+        right: auto;
+
+        transform: translateX(-50%);
+
+        width: 240px;
+
+    }
+
+
+    main {
+
+        margin-top: 20px;
+
+        padding: 0 12px;
+
+    }
+
+
+    section {
+
+        padding: 18px;
+
+    }
+
+
+    .week-navigation {
+
+        flex-direction: column;
+
+    }
+
+
+    .week-navigation button {
+
+        width: 100%;
+
+    }
+
+
+    .week-information {
+
+        order: -1;
+
+    }
+
+
+    .schedule-item {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+
+    .schedule-status {
+
+        white-space: normal;
+
+    }
+
+}

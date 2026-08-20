@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Cleaning Schedule</title>
+
+  <link
+          rel="stylesheet"
+          href="styles.css"
+  >
+
+</head>
+
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="authSection" class="auth-section">
+
+  <form id="loginForm">
+
+    <input
+            type="email"
+            id="emailInput"
+            placeholder="E-post"
+            autocomplete="email"
+            required
+    >
+
+    <input
+            type="password"
+            id="passwordInput"
+            placeholder="Passord"
+            autocomplete="current-password"
+            required
+    >
+
+    <button
+            id="loginButton"
+            type="submit"
+    >
+      Logg inn
+    </button>
+
+    <p id="loginMessage"></p>
+
+  </form>
+
+  <div id="userSection" style="display: none;">
+
+    <span id="loggedInUser"></span>
+
+    <button
+            id="logoutButton"
+            type="button"
+    >
+      Logg ut
+    </button>
+
+  </div>
+
+</div>
+
+<header>
+
+  <div class="header-content">
+
+    <div class="header-text">
+
+      <h1>Cleaning Schedule</h1>
+
+      <p>
+        Shared Living Room & Kitchen
+      </p>
+
+    </div>
+
+
+    <!-- LANGUAGE MENU -->
+
+    <div class="language-container">
+
+      <button
+              id="languageButton"
+              class="language-button"
+              type="button"
+      >
+        🌐 Language
+      </button>
+
+
+      <div
+              id="languageMenu"
+              class="language-menu"
+      >
+
+        <button data-language="en">
+          🇬🇧 English
+        </button>
+
+        <button data-language="no">
+          🇳🇴 Norsk
+        </button>
+
+        <button data-language="hu">
+          🇭🇺 Magyar
+        </button>
+
+        <button data-language="bg">
+          🇧🇬 Български
+        </button>
+
+        <button data-language="ro">
+          🇷🇴 Română
+        </button>
+
+        <button data-language="pl">
+          🇵🇱 Polski
+        </button>
+
+        <button data-language="el">
+          🇬🇷 Ελληνικά
+        </button>
+
+        <button data-language="hr">
+          🇭🇷 Hrvatski
+        </button>
+
+        <button data-language="sk">
+          🇸🇰 Slovenčina
+        </button>
+
+        <button data-language="cs">
+          🇨🇿 Čeština
+        </button>
+
+        <button data-language="ti">
+          🇪🇷 Tigrinya
+        </button>
+
+        <button data-language="am">
+          🇪🇹 Amharic
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<main>
+
+
+  <!-- CURRENT CLEANING -->
+
+  <section class="current-cleaning">
+
+    <h2>This Week</h2>
+
+    <div class="cleaning-info">
+
+      <p>
+        <strong>Date:</strong>
+        <span id="cleaningDate"></span>
+      </p>
+
+      <p>
+        <strong>Responsible:</strong>
+        <span id="responsiblePerson"></span>
+      </p>
+
+      <p>
+        <strong>Time:</strong>
+        <span id="cleaningTime">
+                    08:00–18:00
+                </span>
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- CLEANING SCHEDULE -->
+
+  <section class="schedule">
+
+    <h2>Cleaning Schedule</h2>
+
+
+    <div class="week-navigation">
+
+      <button
+              id="previousWeek"
+              type="button"
+      >
+        ← Previous
+      </button>
+
+
+      <div class="week-information">
+
+        <div id="weekNumber">
+          Week 34
+        </div>
+
+        <div id="weekRange"></div>
+
+      </div>
+
+
+      <button
+              id="nextWeek"
+              type="button"
+      >
+        Next →
+      </button>
+
+    </div>
+
+
+    <div id="scheduleList"></div>
+
+  </section>
+
+
+  <!-- CLEANING TASKS -->
+
+  <section class="tasks">
+
+    <h2>Cleaning Tasks</h2>
+
+
+    <label>
+      <input
+              type="checkbox"
+              id="task1"
+      >
+      <span>
+                Vacuum the living room and kitchen floors
+            </span>
+    </label>
+
+
+    <label>
+      <input
+              type="checkbox"
+              id="task2"
+      >
+      <span>
+                Mop the living room and kitchen floors
+            </span>
+    </label>
+
+
+    <label>
+      <input
+              type="checkbox"
+              id="task3"
+      >
+      <span>
+                Wipe all surfaces
+            </span>
+    </label>
+
+
+    <label>
+      <input
+              type="checkbox"
+              id="task4"
+      >
+      <span>
+                Clean the stove and hob
+            </span>
+    </label>
+
+
+    <label>
+      <input
+              type="checkbox"
+              id="task5"
+      >
+      <span>
+                Clean the sink and kitchen area
+            </span>
+    </label>
+
+
+    <label>
+      <input
+              type="checkbox"
+              id="task6"
+      >
+      <span>
+                Empty the rubbish when needed
+            </span>
+    </label>
+
+
+    <label>
+      <input
+              type="checkbox"
+              id="task7"
+      >
+      <span>
+                Wash kitchen cloths separately
+            </span>
+    </label>
+
+
+    <label>
+      <input
+              type="checkbox"
+              id="task8"
+      >
+      <span>
+                Wash mops separately
+            </span>
+    </label>
+
+
+    <label>
+      <input
+              type="checkbox"
+              id="task9"
+      >
+      <span>
+                Wash bathroom cloths separately
+            </span>
+    </label>
+
+  </section>
+
+
+  <!-- COMPLETE BUTTON -->
+
+  <button
+          id="completeButton"
+          type="button"
+  >
+    Mark cleaning as completed
+  </button>
+
+
+</main>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+
+</body>
+
+</html>
