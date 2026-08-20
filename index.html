@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,57 +23,13 @@
 
 <body>
 
-<!-- LOGIN -->
-
-<div id="authSection" class="auth-section">
-
-  <form id="loginForm">
-
-    <input
-            type="email"
-            id="emailInput"
-            placeholder="E-post"
-            autocomplete="email"
-            required
-    >
-
-    <input
-            type="password"
-            id="passwordInput"
-            placeholder="Passord"
-            autocomplete="current-password"
-            required
-    >
-
-    <button
-            id="loginButton"
-            type="submit"
-    >
-      Logg inn
-    </button>
-
-    <p id="loginMessage"></p>
-
-  </form>
-
-  <div id="userSection" style="display: none;">
-
-    <span id="loggedInUser"></span>
-
-    <button
-            id="logoutButton"
-            type="button"
-    >
-      Logg ut
-    </button>
-
-  </div>
-
-</div>
 
 <header>
 
   <div class="header-content">
+
+
+    <!-- TITLE -->
 
     <div class="header-text">
 
@@ -85,75 +42,151 @@
     </div>
 
 
-    <!-- LANGUAGE MENU -->
+    <!-- HEADER CONTROLS -->
 
-    <div class="language-container">
-
-      <button
-              id="languageButton"
-              class="language-button"
-              type="button"
-      >
-        🌐 Language
-      </button>
+    <div class="header-controls">
 
 
-      <div
-              id="languageMenu"
-              class="language-menu"
-      >
+      <!-- LANGUAGE -->
 
-        <button data-language="en">
-          🇬🇧 English
+      <div class="language-container">
+
+        <button
+                id="languageButton"
+                class="language-button"
+                type="button"
+        >
+          🌐 Language
         </button>
 
-        <button data-language="no">
-          🇳🇴 Norsk
-        </button>
 
-        <button data-language="hu">
-          🇭🇺 Magyar
-        </button>
+        <div
+                id="languageMenu"
+                class="language-menu"
+        >
 
-        <button data-language="bg">
-          🇧🇬 Български
-        </button>
+          <button data-language="en">
+            🇬🇧 English
+          </button>
 
-        <button data-language="ro">
-          🇷🇴 Română
-        </button>
+          <button data-language="no">
+            🇳🇴 Norsk
+          </button>
 
-        <button data-language="pl">
-          🇵🇱 Polski
-        </button>
+          <button data-language="hu">
+            🇭🇺 Magyar
+          </button>
 
-        <button data-language="el">
-          🇬🇷 Ελληνικά
-        </button>
+          <button data-language="bg">
+            🇧🇬 Български
+          </button>
 
-        <button data-language="hr">
-          🇭🇷 Hrvatski
-        </button>
+          <button data-language="ro">
+            🇷🇴 Română
+          </button>
 
-        <button data-language="sk">
-          🇸🇰 Slovenčina
-        </button>
+          <button data-language="pl">
+            🇵🇱 Polski
+          </button>
 
-        <button data-language="cs">
-          🇨🇿 Čeština
-        </button>
+          <button data-language="el">
+            🇬🇷 Ελληνικά
+          </button>
 
-        <button data-language="ti">
-          🇪🇷 Tigrinya
-        </button>
+          <button data-language="hr">
+            🇭🇷 Hrvatski
+          </button>
 
-        <button data-language="am">
-          🇪🇹 Amharic
-        </button>
+          <button data-language="sk">
+            🇸🇰 Slovenčina
+          </button>
+
+          <button data-language="cs">
+            🇨🇿 Čeština
+          </button>
+
+          <button data-language="ti">
+            🇪🇷 Tigrinya
+          </button>
+
+          <button data-language="am">
+            🇪🇹 Amharic
+          </button>
+
+        </div>
 
       </div>
 
+
+      <!-- AUTHENTICATION -->
+
+      <div
+              id="authSection"
+              class="auth-section"
+      >
+
+
+        <!-- LOGIN -->
+
+        <form id="loginForm">
+
+          <input
+                  type="email"
+                  id="emailInput"
+                  placeholder="E-post"
+                  autocomplete="email"
+                  required
+          >
+
+          <input
+                  type="password"
+                  id="passwordInput"
+                  placeholder="Passord"
+                  autocomplete="current-password"
+                  required
+          >
+
+          <button
+                  id="loginButton"
+                  type="submit"
+          >
+            Logg inn
+          </button>
+
+        </form>
+
+
+        <p id="loginMessage"></p>
+
+
+        <!-- LOGGED IN USER -->
+
+        <div
+                id="userSection"
+                style="display: none;"
+        >
+
+                    <span class="user-icon">
+                        👤
+                    </span>
+
+          <span id="loggedInUser"></span>
+
+          <button
+                  id="logoutButton"
+                  type="button"
+          >
+            Logg ut
+          </button>
+
+        </div>
+
+
+      </div>
+
+
     </div>
+
 
   </div>
 
@@ -202,6 +235,7 @@
 
     <div class="week-navigation">
 
+
       <button
               id="previousWeek"
               type="button"
@@ -228,10 +262,12 @@
         Next →
       </button>
 
+
     </div>
 
 
     <div id="scheduleList"></div>
+
 
   </section>
 
@@ -244,102 +280,130 @@
 
 
     <label>
+
       <input
               type="checkbox"
               id="task1"
       >
+
       <span>
                 Vacuum the living room and kitchen floors
             </span>
+
     </label>
 
 
     <label>
+
       <input
               type="checkbox"
               id="task2"
       >
+
       <span>
                 Mop the living room and kitchen floors
             </span>
+
     </label>
 
 
     <label>
+
       <input
               type="checkbox"
               id="task3"
       >
+
       <span>
                 Wipe all surfaces
             </span>
+
     </label>
 
 
     <label>
+
       <input
               type="checkbox"
               id="task4"
       >
+
       <span>
                 Clean the stove and hob
             </span>
+
     </label>
 
 
     <label>
+
       <input
               type="checkbox"
               id="task5"
       >
+
       <span>
                 Clean the sink and kitchen area
             </span>
+
     </label>
 
 
     <label>
+
       <input
               type="checkbox"
               id="task6"
       >
+
       <span>
                 Empty the rubbish when needed
             </span>
+
     </label>
 
 
     <label>
+
       <input
               type="checkbox"
               id="task7"
       >
+
       <span>
                 Wash kitchen cloths separately
             </span>
+
     </label>
 
 
     <label>
+
       <input
               type="checkbox"
               id="task8"
       >
+
       <span>
                 Wash mops separately
             </span>
+
     </label>
 
 
     <label>
+
       <input
               type="checkbox"
               id="task9"
       >
+
       <span>
                 Wash bathroom cloths separately
             </span>
+
     </label>
+
 
   </section>
 
@@ -357,12 +421,14 @@
 </main>
 
 
-
-
+<!-- SUPABASE -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="app.js"></script>
+
 
 </body>
 
 </html>
+

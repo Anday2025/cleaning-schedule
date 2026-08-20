@@ -1,9 +1,15 @@
-/* ========================================
-   GENERAL
-======================================== */
+
+    /* ========================================
+       GENERAL
+    ======================================== */
 
 * {
     box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
 }
 
 
@@ -21,6 +27,7 @@ body {
     color: #1f2933;
 
     line-height: 1.5;
+
 }
 
 
@@ -34,7 +41,7 @@ header {
 
     color: white;
 
-    padding: 25px 20px;
+    padding: 22px 20px;
 
 }
 
@@ -51,7 +58,7 @@ header {
 
     align-items: center;
 
-    gap: 20px;
+    gap: 30px;
 
 }
 
@@ -69,27 +76,48 @@ header h1 {
 
     font-size: 28px;
 
+    line-height: 1.2;
+
 }
 
 
 header p {
 
-    margin: 5px 0 0;
+    margin: 6px 0 0;
 
-    opacity: 0.85;
+    opacity: 0.82;
+
+    font-size: 15px;
 
 }
 
 
 /* ========================================
-   LANGUAGE BUTTON
+   HEADER CONTROLS
+======================================== */
+
+.header-controls {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    flex-shrink: 0;
+
+}
+
+
+/* ========================================
+   LANGUAGE
 ======================================== */
 
 .language-container {
 
     position: relative;
-
-    flex-shrink: 0;
 
 }
 
@@ -102,15 +130,19 @@ header p {
 
     color: #1f2937;
 
-    padding: 10px 15px;
+    padding: 9px 13px;
 
     border-radius: 8px;
 
     cursor: pointer;
 
-    font-size: 14px;
+    font-size: 13px;
 
     font-weight: 600;
+
+    transition:
+            background 0.2s ease,
+            transform 0.1s ease;
 
 }
 
@@ -118,6 +150,13 @@ header p {
 .language-button:hover {
 
     background: #e5e7eb;
+
+}
+
+
+.language-button:active {
+
+    transform: scale(0.98);
 
 }
 
@@ -197,6 +236,200 @@ header p {
 
 
 /* ========================================
+   AUTHENTICATION
+======================================== */
+
+.auth-section {
+
+    position: relative;
+
+}
+
+
+/* ========================================
+   LOGIN FORM
+======================================== */
+
+#loginForm {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+}
+
+
+#loginForm input {
+
+    width: 125px;
+
+    padding: 9px 10px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: white;
+
+    color: #1f2937;
+
+    font-size: 12px;
+
+    outline: none;
+
+}
+
+
+#loginForm input::placeholder {
+
+    color: #64748b;
+
+}
+
+
+#loginForm input:focus {
+
+    box-shadow:
+            0 0 0 2px #60a5fa;
+
+}
+
+
+#loginButton {
+
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 9px 12px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    transition: background 0.2s ease;
+
+}
+
+
+#loginButton:hover {
+
+    background: #1d4ed8;
+
+}
+
+
+/* ========================================
+   LOGIN MESSAGE
+======================================== */
+
+#loginMessage {
+
+    position: absolute;
+
+    top: calc(100% + 5px);
+
+    right: 0;
+
+    width: 250px;
+
+    margin: 0;
+
+    color: #fecaca;
+
+    font-size: 12px;
+
+    text-align: right;
+
+    z-index: 1100;
+
+}
+
+
+/* ========================================
+   LOGGED IN USER
+======================================== */
+
+#userSection {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 5px 6px 5px 9px;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 9px;
+
+}
+
+
+.user-icon {
+
+    font-size: 14px;
+
+}
+
+
+#loggedInUser {
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+#logoutButton {
+
+    border: none;
+
+    background: white;
+
+    color: #1f2937;
+
+    padding: 7px 10px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+#logoutButton:hover {
+
+    background: #e5e7eb;
+
+}
+
+
+/* ========================================
    MAIN
 ======================================== */
 
@@ -236,6 +469,12 @@ section h2 {
 
     margin-top: 0;
 
+    margin-bottom: 18px;
+
+    font-size: 21px;
+
+    color: #1f2937;
+
 }
 
 
@@ -243,9 +482,25 @@ section h2 {
    CURRENT CLEANING
 ======================================== */
 
+.current-cleaning {
+
+    border-left: 4px solid #2563eb;
+
+}
+
+
 .cleaning-info p {
 
     margin: 8px 0;
+
+}
+
+
+.cleaning-info strong {
+
+    display: inline-block;
+
+    min-width: 90px;
 
 }
 
@@ -284,6 +539,10 @@ section h2 {
     cursor: pointer;
 
     font-size: 14px;
+
+    font-weight: 600;
+
+    transition: background 0.2s ease;
 
 }
 
@@ -353,6 +612,8 @@ section h2 {
 
     padding: 16px;
 
+    background: #ffffff;
+
 }
 
 
@@ -400,7 +661,16 @@ section h2 {
 
     cursor: pointer;
 
-    gap: 8px;
+    gap: 10px;
+
+    border-bottom: 1px solid #f1f5f9;
+
+}
+
+
+.tasks label:last-child {
+
+    border-bottom: none;
 
 }
 
@@ -412,6 +682,8 @@ section h2 {
     flex-shrink: 0;
 
     transform: scale(1.15);
+
+    cursor: pointer;
 
 }
 
@@ -446,12 +718,23 @@ section h2 {
 
     cursor: pointer;
 
+    transition:
+            background 0.2s ease,
+            transform 0.1s ease;
+
 }
 
 
 #completeButton:hover {
 
     background: #15803d;
+
+}
+
+
+#completeButton:active {
+
+    transform: scale(0.99);
 
 }
 
@@ -469,7 +752,7 @@ section h2 {
    MOBILE
 ======================================== */
 
-@media (max-width: 650px) {
+@media (max-width: 800px) {
 
     header {
 
@@ -484,7 +767,73 @@ section h2 {
 
         align-items: stretch;
 
+        gap: 16px;
+
+    }
+
+
+    .header-text {
+
         text-align: center;
+
+    }
+
+
+    .header-controls {
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .auth-section {
+
+        width: 100%;
+
+    }
+
+
+    #loginForm {
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    header {
+
+        padding: 18px 12px;
+
+    }
+
+
+    header h1 {
+
+        font-size: 24px;
+
+    }
+
+
+    header p {
+
+        font-size: 14px;
+
+    }
+
+
+    .header-controls {
+
+        flex-direction: column;
+
+        width: 100%;
 
     }
 
@@ -494,6 +843,15 @@ section h2 {
         display: flex;
 
         justify-content: center;
+
+        width: 100%;
+
+    }
+
+
+    .language-button {
+
+        width: auto;
 
     }
 
@@ -511,6 +869,70 @@ section h2 {
     }
 
 
+    .auth-section {
+
+        width: 100%;
+
+    }
+
+
+    #loginForm {
+
+        width: 100%;
+
+        max-width: 360px;
+
+        margin: 0 auto;
+
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 7px;
+
+    }
+
+
+    #loginForm input {
+
+        width: 100%;
+
+    }
+
+
+    #loginButton {
+
+        grid-column: 1 / -1;
+
+        width: 100%;
+
+    }
+
+
+    #loginMessage {
+
+        position: static;
+
+        width: 100%;
+
+        margin-top: 5px;
+
+        text-align: center;
+
+    }
+
+
+    #userSection {
+
+        justify-content: center;
+
+        width: fit-content;
+
+        margin: 0 auto;
+
+    }
+
+
     main {
 
         margin-top: 20px;
@@ -523,6 +945,15 @@ section h2 {
     section {
 
         padding: 18px;
+
+        margin-bottom: 16px;
+
+    }
+
+
+    section h2 {
+
+        font-size: 19px;
 
     }
 
@@ -545,6 +976,8 @@ section h2 {
 
         order: -1;
 
+        width: 100%;
+
     }
 
 
@@ -563,4 +996,12 @@ section h2 {
 
     }
 
+
+    #completeButton {
+
+        margin-bottom: 25px;
+
+    }
+
 }
+
