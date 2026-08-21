@@ -57,7 +57,7 @@ const loggedInUser =
 
 const people = [
     "Nahuel",
-    "Rom-1",
+    "Filmon",
     "Anday",
     "Rom-2",
     "Odysseas"
