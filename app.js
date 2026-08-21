@@ -1,4 +1,3 @@
-
 console.log("APP.JS STARTER");
 
 
@@ -21,12 +20,11 @@ const supabaseClient =
 console.log("Supabase OK");
 
 
-
-
-
 // ============================================================
 // AUTHENTICATION
 // ============================================================
+
+let currentUser = null;
 
 const loginForm =
     document.getElementById("loginForm");
@@ -51,215 +49,6 @@ const loginMessage =
 
 const loggedInUser =
     document.getElementById("loggedInUser");
-
-
-// ============================================================
-// SHOW / HIDE LOGIN
-// ============================================================
-
-function updateAuthUI(user) {
-
-    if (user) {
-
-        if (loginForm) {
-            loginForm.style.display = "none";
-        }
-
-        if (userSection) {
-            userSection.style.display = "block";
-        }
-
-        if (loggedInUser) {
-
-            loggedInUser.textContent =
-                user.email;
-
-        }
-
-    } else {
-
-        if (loginForm) {
-            loginForm.style.display = "block";
-        }
-
-        if (userSection) {
-            userSection.style.display = "none";
-        }
-
-        if (loggedInUser) {
-            loggedInUser.textContent = "";
-        }
-
-    }
-
-}
-
-
-// ============================================================
-// LOGIN
-// ============================================================
-
-if (loginButton) {
-
-    loginButton.addEventListener(
-        "click",
-        async function () {
-
-            const email =
-                emailInput.value.trim();
-
-            const password =
-                passwordInput.value;
-
-
-            if (!email || !password) {
-
-                loginMessage.textContent =
-                    "Please enter email and password.";
-
-                return;
-
-            }
-
-
-            loginButton.disabled = true;
-
-            loginMessage.textContent =
-                "Logging in...";
-
-
-            const {
-                data,
-                error
-            } =
-                await supabaseClient.auth.signInWithPassword({
-                    email: email,
-                    password: password
-                });
-
-
-            if (error) {
-
-                console.error(
-                    "Login failed:",
-                    error
-                );
-
-                loginMessage.textContent =
-                    error.message;
-
-                loginButton.disabled = false;
-
-                return;
-
-            }
-
-
-            console.log(
-                "Login successful:",
-                data.user
-            );
-
-
-            loginMessage.textContent =
-                "";
-
-
-            passwordInput.value = "";
-
-
-            updateAuthUI(
-                data.user
-            );
-
-
-            loginButton.disabled = false;
-
-        }
-    );
-
-}
-
-
-// ============================================================
-// LOGOUT
-// ============================================================
-
-if (logoutButton) {
-
-    logoutButton.addEventListener(
-        "click",
-        async function () {
-
-            const {
-                error
-            } =
-                await supabaseClient.auth.signOut();
-
-
-            if (error) {
-
-                console.error(
-                    "Logout failed:",
-                    error
-                );
-
-                return;
-
-            }
-
-
-            updateAuthUI(null);
-
-        }
-    );
-
-}
-
-
-// ============================================================
-// CHECK CURRENT USER
-// ============================================================
-
-async function checkCurrentUser() {
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth.getUser();
-
-
-    if (error) {
-
-        console.error(
-            "Failed to get current user:",
-            error
-        );
-
-        updateAuthUI(null);
-
-        return;
-
-    }
-
-
-    updateAuthUI(
-        data.user
-    );
-
-}
-
-
-// ============================================================
-// AUTH STATE CHANGES
-// ============================================================
-
-
-
-// Check login when application starts
-
-
 
 
 // ============================================================
@@ -349,18 +138,19 @@ const translations = {
 
         complete: "Mark cleaning as completed",
 
-        completed:
-            "✓ Cleaning completed",
+        completed: "✓ Cleaning completed",
 
-        completedBy:
-            "Completed by",
+        completedBy: "Completed by",
 
-        notCompleted:
-            "Not completed",
+        notCompleted: "Not completed",
 
         notYetAvailable: "Available Thursday–Friday",
 
-        deadlinePassed: "Deadline passed"
+        deadlinePassed: "Deadline passed",
+
+        notResponsible:
+            "Only the responsible resident can complete this cleaning."
+
     },
 
 
@@ -410,17 +200,19 @@ const translations = {
 
         complete: "Marker rengjøringen som utført",
 
-        completed:
-            "✓ Rengjøring utført",
+        completed: "✓ Rengjøring utført",
 
-        completedBy:
-            "Utført av",
+        completedBy: "Utført av",
 
-        notCompleted:
-            "Ikke utført",
+        notCompleted: "Ikke utført",
+
         notYetAvailable: "Tilgjengelig torsdag–fredag",
 
-        deadlinePassed: "Fristen har gått ut"
+        deadlinePassed: "Fristen har gått ut",
+
+        notResponsible:
+            "Bare den som er ansvarlig for rengjøringen kan fullføre den."
+
     },
 
 
@@ -472,11 +264,17 @@ const translations = {
 
         completed: "✓ Takarítás elvégezve",
 
+        completedBy: "Elvégezte",
+
         notCompleted: "Nincs elvégezve",
 
         notYetAvailable: "Csütörtök–péntek között elérhető",
 
-        deadlinePassed: "A határidő lejárt"
+        deadlinePassed: "A határidő lejárt",
+
+        notResponsible:
+            "Csak a takarításért felelős személy jelölheti késznek."
+
     },
 
 
@@ -528,11 +326,17 @@ const translations = {
 
         completed: "✓ Почистването е завършено",
 
+        completedBy: "Извършено от",
+
         notCompleted: "Не е завършено",
 
         notYetAvailable: "Достъпно от четвъртък до петък",
 
-        deadlinePassed: "Крайният срок изтече"
+        deadlinePassed: "Крайният срок изтече",
+
+        notResponsible:
+            "Само отговорният за почистването може да го завърши."
+
     },
 
 
@@ -584,11 +388,17 @@ const translations = {
 
         completed: "✓ Curățenia a fost finalizată",
 
+        completedBy: "Finalizat de",
+
         notCompleted: "Nu este finalizată",
 
         notYetAvailable: "Disponibil joi–vineri",
 
-        deadlinePassed: "Termenul a expirat"
+        deadlinePassed: "Termenul a expirat",
+
+        notResponsible:
+            "Doar persoana responsabilă poate finaliza curățenia."
+
     },
 
 
@@ -640,11 +450,17 @@ const translations = {
 
         completed: "✓ Sprzątanie wykonane",
 
+        completedBy: "Wykonane przez",
+
         notCompleted: "Nie wykonano",
 
         notYetAvailable: "Dostępne w czwartek–piątek",
 
-        deadlinePassed: "Termin minął"
+        deadlinePassed: "Termin minął",
+
+        notResponsible:
+            "Tylko osoba odpowiedzialna może zakończyć sprzątanie."
+
     },
 
 
@@ -696,11 +512,17 @@ const translations = {
 
         completed: "✓ Ο καθαρισμός ολοκληρώθηκε",
 
+        completedBy: "Ολοκληρώθηκε από",
+
         notCompleted: "Δεν ολοκληρώθηκε",
 
         notYetAvailable: "Διαθέσιμο Πέμπτη–Παρασκευή",
 
-        deadlinePassed: "Η προθεσμία έληξε"
+        deadlinePassed: "Η προθεσμία έληξε",
+
+        notResponsible:
+            "Μόνο ο υπεύθυνος μπορεί να ολοκληρώσει τον καθαρισμό."
+
     },
 
 
@@ -752,11 +574,17 @@ const translations = {
 
         completed: "✓ Čišćenje završeno",
 
+        completedBy: "Završio",
+
         notCompleted: "Nije završeno",
 
         notYetAvailable: "Dostupno četvrtkom i petkom",
 
-        deadlinePassed: "Rok je istekao"
+        deadlinePassed: "Rok je istekao",
+
+        notResponsible:
+            "Samo odgovorna osoba može završiti čišćenje."
+
     },
 
 
@@ -808,11 +636,17 @@ const translations = {
 
         completed: "✓ Upratovanie dokončené",
 
+        completedBy: "Dokončil",
+
         notCompleted: "Nedokončené",
 
         notYetAvailable: "Dostupné vo štvrtok–piatok",
 
-        deadlinePassed: "Termín uplynul"
+        deadlinePassed: "Termín uplynul",
+
+        notResponsible:
+            "Upratovanie môže dokončiť iba zodpovedná osoba."
+
     },
 
 
@@ -864,11 +698,17 @@ const translations = {
 
         completed: "✓ Úklid dokončen",
 
+        completedBy: "Dokončil",
+
         notCompleted: "Nedokončeno",
 
         notYetAvailable: "Dostupné ve čtvrtek–pátek",
 
-        deadlinePassed: "Termín vypršel"
+        deadlinePassed: "Termín vypršel",
+
+        notResponsible:
+            "Úklid může dokončit pouze odpovědná osoba."
+
     },
 
 
@@ -920,11 +760,17 @@ const translations = {
 
         completed: "✓ ጽሬት ተወዲኡ",
 
+        completedBy: "ዝወድኦ",
+
         notCompleted: "ኣይተወድአን",
 
         notYetAvailable: "ካብ ሓሙስ ክሳብ ዓርቢ ይፍቀድ",
 
-        deadlinePassed: "ግዜ ገደብ ሓሊፉ"
+        deadlinePassed: "ግዜ ገደብ ሓሊፉ",
+
+        notResponsible:
+            "ጽሬት ክውድእ ዝኽእል ሓላፊ ጽሬት ጥራይ እዩ።"
+
     },
 
 
@@ -976,11 +822,17 @@ const translations = {
 
         completed: "✓ ጽዳት ተጠናቋል",
 
+        completedBy: "ያጠናቀቀው",
+
         notCompleted: "አልተጠናቀቀም",
 
         notYetAvailable: "ሐሙስ–ዓርብ ይገኛል",
 
-        deadlinePassed: "የመጨረሻ ጊዜው አልፏል"
+        deadlinePassed: "የመጨረሻ ጊዜው አልፏል",
+
+        notResponsible:
+            "ጽዳቱን ማጠናቀቅ የሚችለው ኃላፊው ብቻ ነው።"
+
     }
 
 };
@@ -1057,6 +909,227 @@ const languageMenu =
 
 
 // ============================================================
+// AUTH UI
+// ============================================================
+
+function updateAuthUI(user) {
+
+    currentUser = user;
+
+    if (user) {
+
+        if (loginForm) {
+            loginForm.style.display = "none";
+        }
+
+        if (userSection) {
+            userSection.style.display = "block";
+        }
+
+        if (loggedInUser) {
+
+            loggedInUser.textContent =
+                user.email || "";
+
+        }
+
+    } else {
+
+        if (loginForm) {
+            loginForm.style.display = "block";
+        }
+
+        if (userSection) {
+            userSection.style.display = "none";
+        }
+
+        if (loggedInUser) {
+            loggedInUser.textContent = "";
+        }
+
+    }
+
+}
+
+
+// ============================================================
+// LOGIN
+// ============================================================
+
+if (loginButton) {
+
+    loginButton.addEventListener(
+        "click",
+        async function () {
+
+            const email =
+                emailInput
+                    ? emailInput.value.trim()
+                    : "";
+
+            const password =
+                passwordInput
+                    ? passwordInput.value
+                    : "";
+
+
+            if (!email || !password) {
+
+                if (loginMessage) {
+
+                    loginMessage.textContent =
+                        "Please enter email and password.";
+
+                }
+
+                return;
+
+            }
+
+
+            loginButton.disabled = true;
+
+            if (loginMessage) {
+
+                loginMessage.textContent =
+                    "Logging in...";
+
+            }
+
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signInWithPassword({
+
+                    email: email,
+
+                    password: password
+
+                });
+
+
+            if (error) {
+
+                console.error(
+                    "Login failed:",
+                    error
+                );
+
+                if (loginMessage) {
+
+                    loginMessage.textContent =
+                        error.message;
+
+                }
+
+                loginButton.disabled = false;
+
+                return;
+
+            }
+
+
+            console.log(
+                "Login successful:",
+                data.user
+            );
+
+
+            if (loginMessage) {
+                loginMessage.textContent = "";
+            }
+
+
+            if (passwordInput) {
+                passwordInput.value = "";
+            }
+
+
+            updateAuthUI(
+                data.user
+            );
+
+
+            loginButton.disabled = false;
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// LOGOUT
+// ============================================================
+
+if (logoutButton) {
+
+    logoutButton.addEventListener(
+        "click",
+        async function () {
+
+            logoutButton.disabled = true;
+
+
+            const {
+                error
+            } =
+                await supabaseClient.auth.signOut();
+
+
+            if (error) {
+
+                console.error(
+                    "Logout failed:",
+                    error
+                );
+
+                logoutButton.disabled = false;
+
+                return;
+
+            }
+
+
+            updateAuthUI(null);
+
+
+            scheduleData = [];
+
+            selectedWeek = 0;
+
+
+            if (scheduleList) {
+                scheduleList.innerHTML = "";
+            }
+
+
+            if (weekNumberElement) {
+                weekNumberElement.textContent = "";
+            }
+
+
+            if (weekRangeElement) {
+                weekRangeElement.textContent = "";
+            }
+
+
+            if (completeButton) {
+                completeButton.disabled = true;
+            }
+
+
+            logoutButton.disabled = false;
+
+        }
+    );
+
+}
+
+
+// ============================================================
 // GET TASKS
 // ============================================================
 
@@ -1075,9 +1148,15 @@ function getTasks() {
 
 function getISOWeek(date) {
 
-    const tempDate = new Date(date);
+    const tempDate =
+        new Date(date);
 
-    tempDate.setHours(0, 0, 0, 0);
+    tempDate.setHours(
+        0,
+        0,
+        0,
+        0
+    );
 
     tempDate.setDate(
         tempDate.getDate() +
@@ -1173,7 +1252,8 @@ function getResponsiblePerson() {
 
 
     return (
-        scheduleData[selectedWeek].responsible || ""
+        scheduleData[selectedWeek].responsible ||
+        ""
     ).trim();
 
 }
@@ -1209,6 +1289,7 @@ function formatDate(date) {
     if (currentLanguage === "ti") {
 
         const weekdays = [
+
             "ሰንበት",
             "ሰኑይ",
             "ሰሉስ",
@@ -1216,16 +1297,23 @@ function formatDate(date) {
             "ሓሙስ",
             "ዓርቢ",
             "ቀዳም"
+
         ];
 
         return (
+
             weekdays[date.getDay()] +
             ", " +
-            String(date.getDate()).padStart(2, "0") +
+            String(
+                date.getDate()
+            ).padStart(2, "0") +
             "/" +
-            String(date.getMonth() + 1).padStart(2, "0") +
+            String(
+                date.getMonth() + 1
+            ).padStart(2, "0") +
             "/" +
             date.getFullYear()
+
         );
 
     }
@@ -1234,6 +1322,7 @@ function formatDate(date) {
     if (currentLanguage === "am") {
 
         const weekdays = [
+
             "እሁድ",
             "ሰኞ",
             "ማክሰኞ",
@@ -1241,32 +1330,45 @@ function formatDate(date) {
             "ሐሙስ",
             "ዓርብ",
             "ቅዳሜ"
+
         ];
 
         return (
+
             weekdays[date.getDay()] +
             ", " +
-            String(date.getDate()).padStart(2, "0") +
+            String(
+                date.getDate()
+            ).padStart(2, "0") +
             "/" +
-            String(date.getMonth() + 1).padStart(2, "0") +
+            String(
+                date.getMonth() + 1
+            ).padStart(2, "0") +
             "/" +
             date.getFullYear()
+
         );
 
     }
 
 
     const locale =
-        languageLocales[currentLanguage] || "en-GB";
+        languageLocales[currentLanguage] ||
+        "en-GB";
 
 
     return date.toLocaleDateString(
         locale,
         {
+
             weekday: "long",
+
             day: "2-digit",
+
             month: "2-digit",
+
             year: "numeric"
+
         }
     );
 
@@ -1279,49 +1381,72 @@ function formatDate(date) {
 
 function getWeekRange(date) {
 
-    const monday = new Date(date);
+    const monday =
+        new Date(date);
 
-    const day = monday.getDay();
+    const day =
+        monday.getDay();
 
     const difference =
         day === 0
             ? -6
             : 1 - day;
 
+
     monday.setDate(
-        monday.getDate() + difference
+        monday.getDate() +
+        difference
     );
 
 
-    const sunday = new Date(monday);
+    const sunday =
+        new Date(monday);
 
     sunday.setDate(
-        monday.getDate() + 6
+        monday.getDate() +
+        6
     );
 
 
     const locale =
-        languageLocales[currentLanguage] || "en-GB";
+        languageLocales[currentLanguage] ||
+        "en-GB";
 
 
     return (
+
         monday.toLocaleDateString(
             locale,
             {
+
                 day: "2-digit",
+
                 month: "short",
+
                 year: "numeric"
+
             }
-        ) +
-        " – " +
+        )
+
+        +
+
+        " – "
+
+        +
+
         sunday.toLocaleDateString(
             locale,
             {
+
                 day: "2-digit",
+
                 month: "short",
+
                 year: "numeric"
+
             }
         )
+
     );
 
 }
@@ -1334,7 +1459,8 @@ function getWeekRange(date) {
 
 function getCleaningWindow(date) {
 
-    const friday = new Date(date);
+    const friday =
+        new Date(date);
 
     friday.setHours(
         18,
@@ -1344,7 +1470,8 @@ function getCleaningWindow(date) {
     );
 
 
-    const thursday = new Date(date);
+    const thursday =
+        new Date(date);
 
     thursday.setDate(
         thursday.getDate() - 1
@@ -1359,8 +1486,11 @@ function getCleaningWindow(date) {
 
 
     return {
+
         start: thursday,
+
         end: friday
+
     };
 
 }
@@ -1369,34 +1499,11 @@ function getCleaningWindow(date) {
 // ============================================================
 // CLEANING STATUS
 // ============================================================
-function canCompleteCleaning(date) {
-
-    // ========================================================
-    // TEMPORARY TEST MODE
-    // Remove this line after testing
-    // ========================================================
-
-
-
-    // ========================================================
-    // NORMAL RULES
-    // ========================================================
-
-    if (isCleaningTooEarly(date)) {
-        return false;
-    }
-
-    if (isCleaningDeadlinePassed(date)) {
-        return false;
-    }
-
-    return true;
-}
-
 
 function isCleaningDeadlinePassed(date) {
 
-    const now = new Date();
+    const now =
+        new Date();
 
     return (
         now >
@@ -1408,12 +1515,77 @@ function isCleaningDeadlinePassed(date) {
 
 function isCleaningTooEarly(date) {
 
-    const now = new Date();
+    const now =
+        new Date();
 
     return (
         now <
         getCleaningWindow(date).start
     );
+
+}
+
+
+// ============================================================
+// CHECK IF CURRENT USER IS RESPONSIBLE
+// ============================================================
+
+function isCurrentUserResponsible() {
+
+    const schedule =
+        scheduleData[selectedWeek];
+
+
+    if (!schedule) {
+        return false;
+    }
+
+
+    if (!currentUser) {
+        return false;
+    }
+
+
+    if (!schedule.responsible_user_id) {
+        return false;
+    }
+
+
+    return (
+        currentUser.id ===
+        schedule.responsible_user_id
+    );
+
+}
+
+
+// ============================================================
+// CAN COMPLETE CLEANING
+// ============================================================
+
+function canCompleteCleaning(date) {
+
+    if (!isCurrentUserResponsible()) {
+        return false;
+    }
+
+
+    if (isCleaningTooEarly(date)) {
+        return false;
+    }
+
+
+    if (isCleaningDeadlinePassed(date)) {
+        return false;
+    }
+
+
+    if (isCompleted(date)) {
+        return false;
+    }
+
+
+    return true;
 
 }
 
@@ -1427,9 +1599,11 @@ function isCompleted(date) {
     const schedule =
         scheduleData[selectedWeek];
 
+
     if (!schedule) {
         return false;
     }
+
 
     return schedule.completed === true;
 
@@ -1451,9 +1625,15 @@ function loadTasks(date) {
     const deadlinePassed =
         isCleaningDeadlinePassed(date);
 
+    const responsible =
+        isCurrentUserResponsible();
+
+    const completed =
+        isCompleted(date);
+
 
     tasks.forEach(
-        function(task) {
+        function (task) {
 
             const key =
                 `cleaning_${dateKey}_${task.id}`;
@@ -1461,10 +1641,14 @@ function loadTasks(date) {
             const saved =
                 localStorage.getItem(key);
 
+
             task.checked =
                 saved === "true";
 
+
             task.disabled =
+                !responsible ||
+                completed ||
                 deadlinePassed;
 
         }
@@ -1491,6 +1675,32 @@ function updateCompleteButton() {
         translations[currentLanguage];
 
 
+    // --------------------------------------------------------
+    // Not logged in / not responsible
+    // --------------------------------------------------------
+
+    if (!isCurrentUserResponsible()) {
+
+        completeButton.textContent =
+            t.notResponsible ||
+            "Only the responsible resident can complete this cleaning.";
+
+        completeButton.classList.remove(
+            "completed"
+        );
+
+        completeButton.disabled =
+            true;
+
+        return;
+
+    }
+
+
+    // --------------------------------------------------------
+    // Already completed
+    // --------------------------------------------------------
+
     if (isCompleted(date)) {
 
         completeButton.textContent =
@@ -1507,6 +1717,10 @@ function updateCompleteButton() {
 
     }
 
+
+    // --------------------------------------------------------
+    // Too early
+    // --------------------------------------------------------
 
     if (isCleaningTooEarly(date)) {
 
@@ -1525,6 +1739,10 @@ function updateCompleteButton() {
     }
 
 
+    // --------------------------------------------------------
+    // Deadline passed
+    // --------------------------------------------------------
+
     if (isCleaningDeadlinePassed(date)) {
 
         completeButton.textContent =
@@ -1541,6 +1759,10 @@ function updateCompleteButton() {
 
     }
 
+
+    // --------------------------------------------------------
+    // Available
+    // --------------------------------------------------------
 
     completeButton.textContent =
         t.complete;
@@ -1567,8 +1789,6 @@ function updateCurrentCleaning() {
     const person =
         getResponsiblePerson();
 
-    const schedule =
-        scheduleData[selectedWeek];
 
     const dateElement =
         document.getElementById(
@@ -1619,9 +1839,7 @@ function displayWeek() {
     }
 
 
-    if (
-        selectedWeek < 0
-    ) {
+    if (selectedWeek < 0) {
 
         selectedWeek = 0;
 
@@ -1629,7 +1847,8 @@ function displayWeek() {
 
 
     if (
-        selectedWeek >= scheduleData.length
+        selectedWeek >=
+        scheduleData.length
     ) {
 
         selectedWeek =
@@ -1644,6 +1863,9 @@ function displayWeek() {
     const person =
         getResponsiblePerson();
 
+    const schedule =
+        scheduleData[selectedWeek];
+
     const isoWeek =
         getISOWeek(date);
 
@@ -1652,13 +1874,27 @@ function displayWeek() {
 
     const t =
         translations[currentLanguage];
-    console.log("LANGUAGE:", currentLanguage);
-    console.log("TRANSLATION WEEK:", t.week);
-    console.log("ISO WEEK:", isoWeek);
 
-    // ----------------------------------------
+
+    console.log(
+        "LANGUAGE:",
+        currentLanguage
+    );
+
+    console.log(
+        "TRANSLATION WEEK:",
+        t.week
+    );
+
+    console.log(
+        "ISO WEEK:",
+        isoWeek
+    );
+
+
+    // --------------------------------------------------------
     // WEEK NUMBER
-    // ----------------------------------------
+    // --------------------------------------------------------
 
     if (weekNumberElement) {
 
@@ -1668,9 +1904,9 @@ function displayWeek() {
     }
 
 
-    // ----------------------------------------
+    // --------------------------------------------------------
     // WEEK RANGE
-    // ----------------------------------------
+    // --------------------------------------------------------
 
     if (weekRangeElement) {
 
@@ -1680,9 +1916,9 @@ function displayWeek() {
     }
 
 
-    // ----------------------------------------
+    // --------------------------------------------------------
     // SCHEDULE
-    // ----------------------------------------
+    // --------------------------------------------------------
 
     if (scheduleList) {
 
@@ -1692,51 +1928,57 @@ function displayWeek() {
 
     <div>
 
-    <strong>
-    ${formatDate(date)}
-</strong>
+        <strong>
+            ${formatDate(date)}
+        </strong>
 
-<p>
-    ${t.responsible}:
-    ${person}
-</p>
+        <p>
+            ${t.responsible}:
+            ${person}
+        </p>
 
-<small>
-    08:00–18:00
-</small>
+        <small>
+            08:00–18:00
+        </small>
 
-</div>
+    </div>
 
-<div class="schedule-status">
+    <div class="schedule-status">
 
-    ${
+        ${
             completed
                 ? `
-                <strong>${t.completed}</strong>
+                    <strong>
+                        ${t.completed}
+                    </strong>
 
-                <div>
-                    ${t.completedBy || "Completed by"}:
-                    ${scheduleData[selectedWeek].completed_by || ""}
-                </div>
+                    <div>
+                        ${t.completedBy || "Completed by"}:
+                        ${schedule.completed_by || ""}
+                    </div>
 
-                ${
-                    scheduleData[selectedWeek].completed_at
+                    ${
+                    schedule.completed_at
                         ? `
-                            <div>
-                                ${new Date(
-                            scheduleData[selectedWeek].completed_at
-                        ).toLocaleString(
-                            languageLocales[currentLanguage] || "en-GB"
-                        )}
-                            </div>
-                        `
+                                <div>
+                                    ${
+                            new Date(
+                                schedule.completed_at
+                            ).toLocaleString(
+                                languageLocales[
+                                    currentLanguage
+                                    ] || "en-GB"
+                            )
+                        }
+                                </div>
+                            `
                         : ""
                 }
-            `
+                `
                 : t.notCompleted
         }
 
-</div>
+    </div>
 
 </div>
 
@@ -1745,30 +1987,30 @@ function displayWeek() {
     }
 
 
-    // ----------------------------------------
+    // --------------------------------------------------------
     // CURRENT CLEANING
-    // ----------------------------------------
+    // --------------------------------------------------------
 
     updateCurrentCleaning();
 
 
-    // ----------------------------------------
+    // --------------------------------------------------------
     // TASKS
-    // ----------------------------------------
+    // --------------------------------------------------------
 
     loadTasks(date);
 
 
-    // ----------------------------------------
+    // --------------------------------------------------------
     // COMPLETE BUTTON
-    // ----------------------------------------
+    // --------------------------------------------------------
 
     updateCompleteButton();
 
 
-    // ----------------------------------------
+    // --------------------------------------------------------
     // PREVIOUS / NEXT
-    // ----------------------------------------
+    // --------------------------------------------------------
 
     if (previousWeekButton) {
 
@@ -1793,7 +2035,7 @@ function displayWeek() {
         "ISO:",
         isoWeek,
         "DATA:",
-        scheduleData[selectedWeek]
+        schedule
     );
 
 }
@@ -1807,6 +2049,11 @@ function applyLanguage() {
 
     const t =
         translations[currentLanguage];
+
+
+    if (!t) {
+        return;
+    }
 
 
     document.documentElement.lang =
@@ -1932,10 +2179,11 @@ function applyLanguage() {
 
 
     labels.forEach(
-        function(label, index) {
+        function (label, index) {
 
             const span =
                 label.querySelector("span");
+
 
             if (
                 span &&
@@ -1951,7 +2199,14 @@ function applyLanguage() {
     );
 
 
-    displayWeek();
+    if (
+        scheduleData &&
+        scheduleData.length > 0
+    ) {
+
+        displayWeek();
+
+    }
 
 }
 
@@ -1967,7 +2222,7 @@ if (
 
     languageButton.addEventListener(
         "click",
-        function(event) {
+        function (event) {
 
             event.stopPropagation();
 
@@ -1992,11 +2247,11 @@ const languageButtons =
 
 
 languageButtons.forEach(
-    function(button) {
+    function (button) {
 
         button.addEventListener(
             "click",
-            function(event) {
+            function (event) {
 
                 event.stopPropagation();
 
@@ -2045,7 +2300,7 @@ languageButtons.forEach(
 
 document.addEventListener(
     "click",
-    function() {
+    function () {
 
         if (languageMenu) {
 
@@ -2067,7 +2322,7 @@ if (previousWeekButton) {
 
     previousWeekButton.addEventListener(
         "click",
-        function() {
+        function () {
 
             if (selectedWeek > 0) {
 
@@ -2096,7 +2351,7 @@ if (nextWeekButton) {
 
     nextWeekButton.addEventListener(
         "click",
-        function() {
+        function () {
 
             if (
                 selectedWeek <
@@ -2128,11 +2383,15 @@ if (completeButton) {
 
     completeButton.addEventListener(
         "click",
-        async function() {
+        async function () {
 
             const date =
                 getScheduleDate();
 
+
+            // ------------------------------------------------
+            // Frontend permission check
+            // ------------------------------------------------
 
             if (!canCompleteCleaning(date)) {
 
@@ -2158,7 +2417,8 @@ if (completeButton) {
             }
 
 
-            completeButton.disabled = true;
+            completeButton.disabled =
+                true;
 
 
             console.log(
@@ -2167,9 +2427,15 @@ if (completeButton) {
             );
 
 
-            // ====================================================
+            // ------------------------------------------------
             // SECURE COMPLETION
-            // ====================================================
+            //
+            // Supabase RPC should enforce:
+            // - authenticated user
+            // - responsible_user_id = auth.uid()
+            // - correct cleaning window
+            // - not already completed
+            // ------------------------------------------------
 
             const {
                 data,
@@ -2192,7 +2458,8 @@ if (completeButton) {
                     error
                 );
 
-                completeButton.disabled = false;
+                completeButton.disabled =
+                    false;
 
                 return;
 
@@ -2205,12 +2472,18 @@ if (completeButton) {
             );
 
 
-            // ====================================================
+            // ------------------------------------------------
             // UPDATE LOCAL DATA
-            // ====================================================
+            // ------------------------------------------------
 
-            scheduleData[selectedWeek] =
-                data;
+            if (data) {
+
+                scheduleData[selectedWeek] =
+                    Array.isArray(data)
+                        ? data[0]
+                        : data;
+
+            }
 
 
             displayWeek();
@@ -2227,7 +2500,7 @@ if (completeButton) {
 
 document.addEventListener(
     "change",
-    function(event) {
+    function (event) {
 
         if (
             !event.target.matches(
@@ -2246,6 +2519,23 @@ document.addEventListener(
         const date =
             getScheduleDate();
 
+
+        // ------------------------------------------------
+        // Only responsible user can interact.
+        // ------------------------------------------------
+
+        if (!isCurrentUserResponsible()) {
+
+            loadTasks(date);
+
+            return;
+
+        }
+
+
+        // ------------------------------------------------
+        // Cannot modify outside cleaning window.
+        // ------------------------------------------------
 
         if (
             !canCompleteCleaning(date)
@@ -2272,10 +2562,6 @@ document.addEventListener(
 
 
 // ============================================================
-// LOAD SCHEDULE FROM SUPABASE
-// ============================================================
-
-// ============================================================
 // LOAD CLEANING SCHEDULE FROM SUPABASE
 // ============================================================
 
@@ -2285,17 +2571,23 @@ async function loadScheduleFromSupabase() {
         "Loading cleaning schedule..."
     );
 
-    const pageSize = 1000;
 
-    let allData = [];
+    const pageSize =
+        1000;
 
-    let from = 0;
+    let allData =
+        [];
+
+    let from =
+        0;
 
 
     while (true) {
 
         const to =
-            from + pageSize - 1;
+            from +
+            pageSize -
+            1;
 
 
         const {
@@ -2305,7 +2597,7 @@ async function loadScheduleFromSupabase() {
             await supabaseClient
                 .from("cleaning_schedule")
                 .select(
-                    "id, cleaning_date, responsible, completed, completed_at, completed_by"
+                    "id, cleaning_date, responsible, responsible_user_id, completed, completed_at, completed_by, completed_by_user_id"
                 )
                 .order(
                     "cleaning_date",
@@ -2351,7 +2643,8 @@ async function loadScheduleFromSupabase() {
 
 
         if (
-            data.length < pageSize
+            data.length <
+            pageSize
         ) {
 
             break;
@@ -2359,7 +2652,8 @@ async function loadScheduleFromSupabase() {
         }
 
 
-        from += pageSize;
+        from +=
+            pageSize;
 
     }
 
@@ -2380,19 +2674,15 @@ async function loadScheduleFromSupabase() {
     );
 
 
-    // Start at first schedule entry
-
-    selectedWeek = 0;
+    // Start at first schedule entry.
+    selectedWeek =
+        0;
 
 
     displayWeek();
 
 }
 
-
-// ============================================================
-// START APPLICATION
-// ============================================================
 
 // ============================================================
 // START APPLICATION
@@ -2408,8 +2698,9 @@ async function startApplication() {
     applyLanguage();
 
 
-    // Wait for Supabase to determine
-    // whether a user is logged in
+    // --------------------------------------------------------
+    // Check whether a Supabase session already exists.
+    // --------------------------------------------------------
 
     const {
         data: {
@@ -2425,6 +2716,8 @@ async function startApplication() {
             "No active session. Waiting for login."
         );
 
+        updateAuthUI(null);
+
         return;
 
     }
@@ -2433,6 +2726,12 @@ async function startApplication() {
     console.log(
         "Active Supabase session found:",
         session.user.email
+    );
+
+
+    // Make sure currentUser is set.
+    updateAuthUI(
+        session.user
     );
 
 
@@ -2446,7 +2745,7 @@ async function startApplication() {
 // ============================================================
 
 supabaseClient.auth.onAuthStateChange(
-    async function(event, session) {
+    async function (event, session) {
 
         console.log(
             "Auth event:",
@@ -2461,6 +2760,62 @@ supabaseClient.auth.onAuthStateChange(
         );
 
 
+        // ----------------------------------------------------
+        // User signed out
+        // ----------------------------------------------------
+
+        if (
+            event === "SIGNED_OUT"
+        ) {
+
+            scheduleData =
+                [];
+
+            selectedWeek =
+                0;
+
+
+            if (scheduleList) {
+
+                scheduleList.innerHTML =
+                    "";
+
+            }
+
+
+            if (weekNumberElement) {
+
+                weekNumberElement.textContent =
+                    "";
+
+            }
+
+
+            if (weekRangeElement) {
+
+                weekRangeElement.textContent =
+                    "";
+
+            }
+
+
+            if (completeButton) {
+
+                completeButton.disabled =
+                    true;
+
+            }
+
+
+            return;
+
+        }
+
+
+        // ----------------------------------------------------
+        // User signed in
+        // ----------------------------------------------------
+
         if (
             event === "SIGNED_IN" &&
             session
@@ -2472,6 +2827,22 @@ supabaseClient.auth.onAuthStateChange(
 
 
             await loadScheduleFromSupabase();
+
+            return;
+
+        }
+
+
+        // ----------------------------------------------------
+        // Other auth/session changes
+        // ----------------------------------------------------
+
+        if (
+            session &&
+            scheduleData.length > 0
+        ) {
+
+            displayWeek();
 
         }
 
