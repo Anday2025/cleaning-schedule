@@ -104,6 +104,9 @@ const translations = {
 
         date: "Date",
 
+        thursdayNote:
+            "If Friday is not possible, cleaning should be done on Thursday.",
+
         responsible: "Responsible",
 
         time: "Time",
@@ -165,6 +168,9 @@ const translations = {
         thisWeek: "Denne uken",
 
         date: "Dato",
+
+        thursdayNote:
+            "Hvis fredag ikke er mulig, skal rengjøringen utføres på torsdag.",
 
         responsible: "Ansvarlig",
 
@@ -228,6 +234,9 @@ const translations = {
 
         date: "Dátum",
 
+        thursdayNote:
+            "Ha pénteken nem lehetséges, a takarítást csütörtökön kell elvégezni.",
+
         responsible: "Felelős",
 
         time: "Idő",
@@ -289,6 +298,9 @@ const translations = {
         thisWeek: "Тази седмица",
 
         date: "Дата",
+
+        thursdayNote:
+            "Ако почистването в петък не е възможно, то трябва да бъде извършено в четвъртък.",
 
         responsible: "Отговорник",
 
@@ -352,6 +364,9 @@ const translations = {
 
         date: "Data",
 
+        thursdayNote:
+            "Dacă vineri nu este posibil, curățenia trebuie făcută joi.",
+
         responsible: "Responsabil",
 
         time: "Ora",
@@ -413,6 +428,9 @@ const translations = {
         thisWeek: "Ten tydzień",
 
         date: "Data",
+
+        thursdayNote:
+            "Jeśli sprzątanie w piątek nie jest możliwe, należy je wykonać w czwartek.",
 
         responsible: "Odpowiedzialny",
 
@@ -476,6 +494,9 @@ const translations = {
 
         date: "Ημερομηνία",
 
+        thursdayNote:
+            "Εάν δεν είναι δυνατό την Παρασκευή, ο καθαρισμός πρέπει να γίνει την Πέμπτη.",
+
         responsible: "Υπεύθυνος",
 
         time: "Ώρα",
@@ -537,6 +558,9 @@ const translations = {
         thisWeek: "Ovaj tjedan",
 
         date: "Datum",
+
+        thursdayNote:
+            "Ako čišćenje u petak nije moguće, treba ga obaviti u četvrtak.",
 
         responsible: "Odgovorna osoba",
 
@@ -600,6 +624,9 @@ const translations = {
 
         date: "Dátum",
 
+        thursdayNote:
+            "Ak upratovanie v piatok nie je možné, musí sa vykonať vo štvrtok.",
+
         responsible: "Zodpovedná osoba",
 
         time: "Čas",
@@ -661,6 +688,9 @@ const translations = {
         thisWeek: "Tento týden",
 
         date: "Datum",
+
+        thursdayNote:
+            "Pokud není možné uklidit v pátek, úklid musí být proveden ve čtvrtek.",
 
         responsible: "Odpovědná osoba",
 
@@ -724,6 +754,9 @@ const translations = {
 
         date: "ዕለት",
 
+        thursdayNote:
+            "ዓርቢ ምጽራይ እንተዘይከኣል፣ ምጽራይ ሓሙስ ክግበር ኣለዎ።",
+
         responsible: "ሓላፊ",
 
         time: "ግዜ",
@@ -785,6 +818,9 @@ const translations = {
         thisWeek: "የዚህ ሳምንት",
 
         date: "ቀን",
+
+        thursdayNote:
+            "አርብ ማጽዳት ካልተቻለ፣ ጽዳቱ ሐሙስ መከናወን አለበት።",
 
         responsible: "ኃላፊ",
 
@@ -858,8 +894,6 @@ const languageLocales = {
     am: "am-ET"
 
 };
-
-
 // ============================================================
 // CURRENT LANGUAGE
 // ============================================================
@@ -2112,23 +2146,27 @@ function applyLanguage() {
             ".cleaning-info p"
         );
 
-
     if (info.length >= 3) {
 
-        info[0].innerHTML =
-            `<strong>${t.date}:</strong>
-<span id="cleaningDate"></span>`;
+        info[0].innerHTML = `
+        <strong>${t.date}:</strong>
+        <span id="cleaningDate"></span>
+        <span class="thursday-note">
+            ${t.thursdayNote}
+        </span>
+    `;
 
-        info[1].innerHTML =
-            `<strong>${t.responsible}:</strong>
-<span id="responsiblePerson"></span>`;
+        info[1].innerHTML = `
+        <strong>${t.responsible}:</strong>
+        <span id="responsiblePerson"></span>
+    `;
 
-        info[2].innerHTML =
-            `<strong>${t.time}:</strong>
-<span id="cleaningTime">08:00–18:00</span>`;
+        info[2].innerHTML = `
+        <strong>${t.time}:</strong>
+        <span id="cleaningTime">08:00–18:00</span> 
+    `;
 
     }
-
 
     const scheduleTitle =
         document.querySelector(

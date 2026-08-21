@@ -482,11 +482,12 @@ section h2 {
    CURRENT CLEANING
 ======================================== */
 
-.current-cleaning {
-
-    border-left: 4px solid #2563eb;
-
-}
+    .current-cleaning {
+        background-color: #eaf7ea;
+        border: 1px solid #b9dfb9;
+        border-radius: 12px;
+        padding: 20px;
+    }
 
 
 .cleaning-info p {
@@ -1003,5 +1004,20 @@ section h2 {
 
     }
 
-}
+}/* ========================================
+   DATE + THURSDAY NOTICE
+======================================== */
 
+    .date-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .thursday-note {
+        color: #dc2626;
+        font-weight: 600;
+        font-size: 14px;
+        margin-left: 4px;
+    }
