@@ -153,10 +153,52 @@
             Logg inn
           </button>
 
+          <button
+                  id="forgotPasswordButton"
+                  type="button"
+                  class="forgot-password-button"
+          >
+            Glemt passord?
+          </button>
+
+          <p id="loginMessage"></p>
+
         </form>
 
 
-        <p id="loginMessage"></p>
+        <!-- RESET PASSWORD -->
+
+        <form id="resetPasswordForm" style="display: none;">
+
+          <h2>Tilbakestill passord</h2>
+
+          <input
+                  type="password"
+                  id="newPasswordInput"
+                  placeholder="Nytt passord"
+                  autocomplete="new-password"
+                  required
+          >
+
+          <input
+                  type="password"
+                  id="confirmPasswordInput"
+                  placeholder="Bekreft nytt passord"
+                  autocomplete="new-password"
+                  required
+          >
+
+          <button
+                  id="updatePasswordButton"
+                  type="submit"
+          >
+            Oppdater passord
+          </button>
+
+          <p id="resetPasswordMessage"></p>
+
+        </form>
+
 
 
         <!-- LOGGED IN USER -->

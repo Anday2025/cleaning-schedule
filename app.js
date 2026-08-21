@@ -1164,6 +1164,296 @@ if (logoutButton) {
 
 
 // ============================================================
+// PASSWORD RECOVERY
+// ============================================================
+
+const forgotPasswordButton =
+    document.getElementById("forgotPasswordButton");
+
+const resetPasswordForm =
+    document.getElementById("resetPasswordForm");
+
+const newPasswordInput =
+    document.getElementById("newPasswordInput");
+
+const confirmPasswordInput =
+    document.getElementById("confirmPasswordInput");
+
+const updatePasswordButton =
+    document.getElementById("updatePasswordButton");
+
+const resetPasswordMessage =
+    document.getElementById("resetPasswordMessage");
+
+
+// ============================================================
+// FORGOT PASSWORD
+// ============================================================
+
+if (forgotPasswordButton) {
+
+    forgotPasswordButton.addEventListener(
+        "click",
+        async function () {
+
+            const email =
+                emailInput
+                    ? emailInput.value.trim()
+                    : "";
+
+
+            if (!email) {
+
+                if (loginMessage) {
+
+                    loginMessage.textContent =
+                        "Please enter your email address first.";
+
+                }
+
+                return;
+
+            }
+
+
+            forgotPasswordButton.disabled = true;
+
+
+            if (loginMessage) {
+
+                loginMessage.textContent =
+                    "Sending password reset email...";
+
+            }
+
+
+            const {
+                error
+            } =
+                await supabaseClient.auth.resetPasswordForEmail(
+                    email,
+                    {
+                        redirectTo:
+                            window.location.origin +
+                            window.location.pathname
+                    }
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "Password reset failed:",
+                    error
+                );
+
+                if (loginMessage) {
+
+                    loginMessage.textContent =
+                        error.message;
+
+                }
+
+                forgotPasswordButton.disabled = false;
+
+                return;
+
+            }
+
+
+            if (loginMessage) {
+
+                loginMessage.textContent =
+                    "Password reset email sent. Please check your email.";
+
+            }
+
+
+            forgotPasswordButton.disabled = false;
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// SUPABASE AUTH STATE
+// ============================================================
+
+supabaseClient.auth.onAuthStateChange(
+    async function (event, session) {
+
+        console.log(
+            "Auth event:",
+            event
+        );
+
+
+        if (event === "PASSWORD_RECOVERY") {
+
+            console.log(
+                "Password recovery session detected."
+            );
+
+
+            if (loginForm) {
+                loginForm.style.display = "none";
+            }
+
+
+            if (resetPasswordForm) {
+                resetPasswordForm.style.display = "block";
+            }
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// UPDATE PASSWORD
+// ============================================================
+
+if (resetPasswordForm) {
+
+    resetPasswordForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const newPassword =
+                newPasswordInput
+                    ? newPasswordInput.value
+                    : "";
+
+            const confirmPassword =
+                confirmPasswordInput
+                    ? confirmPasswordInput.value
+                    : "";
+
+
+            if (!newPassword || !confirmPassword) {
+
+                if (resetPasswordMessage) {
+
+                    resetPasswordMessage.textContent =
+                        "Please enter and confirm your new password.";
+
+                }
+
+                return;
+
+            }
+
+
+            if (newPassword !== confirmPassword) {
+
+                if (resetPasswordMessage) {
+
+                    resetPasswordMessage.textContent =
+                        "The passwords do not match.";
+
+                }
+
+                return;
+
+            }
+
+
+            updatePasswordButton.disabled = true;
+
+
+            if (resetPasswordMessage) {
+
+                resetPasswordMessage.textContent =
+                    "Updating password...";
+
+            }
+
+
+            const {
+                error
+            } =
+                await supabaseClient.auth.updateUser({
+
+                    password: newPassword
+
+                });
+
+
+            if (error) {
+
+                console.error(
+                    "Password update failed:",
+                    error
+                );
+
+                if (resetPasswordMessage) {
+
+                    resetPasswordMessage.textContent =
+                        error.message;
+
+                }
+
+                updatePasswordButton.disabled = false;
+
+                return;
+
+            }
+
+
+            if (resetPasswordMessage) {
+
+                resetPasswordMessage.textContent =
+                    "Password updated successfully.";
+
+            }
+
+
+            newPasswordInput.value = "";
+            confirmPasswordInput.value = "";
+
+
+            setTimeout(
+                async function () {
+
+                    await supabaseClient.auth.signOut();
+
+
+                    if (resetPasswordForm) {
+                        resetPasswordForm.style.display = "none";
+                    }
+
+                    if (loginForm) {
+                        loginForm.style.display = "block";
+                    }
+
+                    if (loginMessage) {
+
+                        loginMessage.textContent =
+                            "Password updated. You can now log in.";
+
+                    }
+
+                    updatePasswordButton.disabled = false;
+
+                },
+                1500
+            );
+
+        }
+    );
+
+}
+
+
+
+
+// ============================================================
 // GET TASKS
 // ============================================================
 
