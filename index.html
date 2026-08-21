@@ -170,11 +170,14 @@
 
         <form id="resetPasswordForm" style="display: none;">
 
-          <h2>Tilbakestill passord</h2>
+          <h2 data-i18n="resetPasswordTitle">
+            Tilbakestill passord
+          </h2>
 
           <input
                   type="password"
                   id="newPasswordInput"
+                  data-i18n-placeholder="newPassword"
                   placeholder="Nytt passord"
                   autocomplete="new-password"
                   required
@@ -183,6 +186,7 @@
           <input
                   type="password"
                   id="confirmPasswordInput"
+                  data-i18n-placeholder="confirmPassword"
                   placeholder="Bekreft nytt passord"
                   autocomplete="new-password"
                   required
@@ -191,6 +195,7 @@
           <button
                   id="updatePasswordButton"
                   type="submit"
+                  data-i18n="updatePassword"
           >
             Oppdater passord
           </button>
@@ -198,9 +203,6 @@
           <p id="resetPasswordMessage"></p>
 
         </form>
-
-
-
         <!-- LOGGED IN USER -->
 
         <div

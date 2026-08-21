@@ -26,30 +26,6 @@ console.log("Supabase OK");
 
 let currentUser = null;
 
-const loginForm =
-    document.getElementById("loginForm");
-
-const userSection =
-    document.getElementById("userSection");
-
-const emailInput =
-    document.getElementById("emailInput");
-
-const passwordInput =
-    document.getElementById("passwordInput");
-
-const loginButton =
-    document.getElementById("loginButton");
-
-const logoutButton =
-    document.getElementById("logoutButton");
-
-const loginMessage =
-    document.getElementById("loginMessage");
-
-const loggedInUser =
-    document.getElementById("loggedInUser");
-
 
 // ============================================================
 // PEOPLE
@@ -92,783 +68,1167 @@ const scheduleStart = new Date(
 
 const translations = {
 
+    // ========================================================
+    // ENGLISH
+    // ========================================================
+
     en: {
 
         language: "🌐 Language",
 
-        title: "Cleaning Schedule",
+        resetPasswordTitle: "Reset password",
+        newPassword: "New password",
+        confirmPassword: "Confirm new password",
+        updatePassword: "Update password",
+        forgotPassword: "Forgot password?",
+        logout: "Log out",
+        login: "Log in",
+        email: "Email",
+        password: "Password",
 
+        title: "Cleaning Schedule",
         subtitle: "Shared Living Room & Kitchen",
 
         thisWeek: "This Week",
-
         date: "Date",
 
         thursdayNote:
             "If Friday is not possible, cleaning should be done on Thursday.",
 
         responsible: "Responsible",
-
         time: "Time",
 
         cleaningSchedule: "Cleaning Schedule",
-
         week: "Week",
 
         previous: "← Previous",
-
         next: "Next →",
 
         cleaningTasks: "Cleaning Tasks",
 
         task1: "Vacuum the living room and kitchen floors",
-
         task2: "Mop the living room and kitchen floors",
-
         task3: "Wipe all surfaces",
-
         task4: "Clean the stove and hob",
-
         task5: "Clean the sink and kitchen area",
-
         task6: "Empty the rubbish when needed",
-
         task7: "Wash kitchen cloths separately",
-
         task8: "Wash mops separately",
-
         task9: "Wash bathroom cloths separately",
 
         complete: "Mark cleaning as completed",
-
         completed: "✓ Cleaning completed",
-
         completedBy: "Completed by",
-
         notCompleted: "Not completed",
 
         notYetAvailable: "Available Thursday–Friday",
-
         deadlinePassed: "Deadline passed",
 
         notResponsible:
-            "Only the responsible resident can complete this cleaning."
+            "Only the responsible resident can complete this cleaning.",
 
+        loginRequired:
+            "Please log in to complete cleaning.",
+
+        enterEmailPassword:
+            "Please enter email and password.",
+
+        loggingIn:
+            "Logging in...",
+
+        loginSuccessful:
+            "Login successful.",
+
+        sendingReset:
+            "Sending password reset email...",
+
+        resetSent:
+            "Password reset email sent. Please check your email.",
+
+        enterEmailFirst:
+            "Please enter your email address first.",
+
+        updatingPassword:
+            "Updating password...",
+
+        passwordUpdated:
+            "Password updated successfully.",
+
+        passwordUpdatedLogin:
+            "Password updated. You can now log in.",
+
+        enterPasswords:
+            "Please enter and confirm your new password.",
+
+        passwordsDoNotMatch:
+            "The passwords do not match."
     },
 
+
+    // ========================================================
+    // NORWEGIAN
+    // ========================================================
 
     no: {
 
         language: "🌐 Språk",
 
-        title: "Rengjøringsplan",
+        resetPasswordTitle: "Tilbakestill passord",
+        newPassword: "Nytt passord",
+        confirmPassword: "Bekreft nytt passord",
+        updatePassword: "Oppdater passord",
+        forgotPassword: "Glemt passord?",
+        logout: "Logg ut",
+        login: "Logg inn",
+        email: "E-post",
+        password: "Passord",
 
+        title: "Rengjøringsplan",
         subtitle: "Felles stue og kjøkken",
 
         thisWeek: "Denne uken",
-
         date: "Dato",
 
         thursdayNote:
             "Hvis fredag ikke er mulig, skal rengjøringen utføres på torsdag.",
 
         responsible: "Ansvarlig",
-
         time: "Tid",
 
         cleaningSchedule: "Rengjøringsplan",
-
         week: "Uke",
 
         previous: "← Forrige",
-
         next: "Neste →",
 
         cleaningTasks: "Rengjøringsoppgaver",
 
         task1: "Støvsug stuen og kjøkkengulvet",
-
         task2: "Vask stuen og kjøkkengulvet",
-
         task3: "Tørk av alle overflater",
-
         task4: "Rengjør komfyren og platetoppen",
-
         task5: "Rengjør vasken og kjøkkenområdet",
-
         task6: "Tøm søppelet ved behov",
-
         task7: "Vask kjøkkenkluter separat",
-
         task8: "Vask mopper separat",
-
         task9: "Vask baderomskluter separat",
 
         complete: "Marker rengjøringen som utført",
-
         completed: "✓ Rengjøring utført",
-
         completedBy: "Utført av",
-
         notCompleted: "Ikke utført",
 
         notYetAvailable: "Tilgjengelig torsdag–fredag",
-
         deadlinePassed: "Fristen har gått ut",
 
         notResponsible:
-            "Bare den som er ansvarlig for rengjøringen kan fullføre den."
+            "Bare den som er ansvarlig for rengjøringen kan fullføre den.",
 
+        loginRequired:
+            "Logg inn for å fullføre rengjøringen.",
+
+        enterEmailPassword:
+            "Skriv inn e-post og passord.",
+
+        loggingIn:
+            "Logger inn...",
+
+        loginSuccessful:
+            "Innlogging vellykket.",
+
+        sendingReset:
+            "Sender e-post for tilbakestilling av passord...",
+
+        resetSent:
+            "E-post for tilbakestilling er sendt. Sjekk e-posten din.",
+
+        enterEmailFirst:
+            "Skriv inn e-postadressen din først.",
+
+        updatingPassword:
+            "Oppdaterer passord...",
+
+        passwordUpdated:
+            "Passordet er oppdatert.",
+
+        passwordUpdatedLogin:
+            "Passordet er oppdatert. Du kan nå logge inn.",
+
+        enterPasswords:
+            "Skriv inn og bekreft det nye passordet.",
+
+        passwordsDoNotMatch:
+            "Passordene er ikke like."
     },
 
+
+    // ========================================================
+    // HUNGARIAN
+    // ========================================================
 
     hu: {
 
         language: "🌐 Nyelv",
 
-        title: "Takarítási beosztás",
+        resetPasswordTitle: "Jelszó visszaállítása",
+        newPassword: "Új jelszó",
+        confirmPassword: "Új jelszó megerősítése",
+        updatePassword: "Jelszó frissítése",
+        forgotPassword: "Elfelejtette a jelszavát?",
+        logout: "Kijelentkezés",
+        login: "Bejelentkezés",
+        email: "E-mail",
+        password: "Jelszó",
 
+        title: "Takarítási beosztás",
         subtitle: "Közös nappali és konyha",
 
         thisWeek: "Ezen a héten",
-
         date: "Dátum",
 
         thursdayNote:
             "Ha pénteken nem lehetséges, a takarítást csütörtökön kell elvégezni.",
 
         responsible: "Felelős",
-
         time: "Idő",
 
         cleaningSchedule: "Takarítási beosztás",
-
         week: "Hét",
 
         previous: "← Előző",
-
         next: "Következő →",
 
         cleaningTasks: "Takarítási feladatok",
 
         task1: "A nappali és a konyha padlójának porszívózása",
-
         task2: "A nappali és a konyha padlójának felmosása",
-
         task3: "Minden felület letörlése",
-
         task4: "A tűzhely és főzőlap megtisztítása",
-
         task5: "A mosogató és a konyhai terület megtisztítása",
-
         task6: "A szemét kiürítése szükség esetén",
-
         task7: "Konyharuhák külön mosása",
-
         task8: "Felmosók külön mosása",
-
         task9: "Fürdőszobai törlőkendők külön mosása",
 
         complete: "Takarítás elvégzettként megjelölése",
-
         completed: "✓ Takarítás elvégezve",
-
         completedBy: "Elvégezte",
-
         notCompleted: "Nincs elvégezve",
 
         notYetAvailable: "Csütörtök–péntek között elérhető",
-
         deadlinePassed: "A határidő lejárt",
 
         notResponsible:
-            "Csak a takarításért felelős személy jelölheti késznek."
+            "Csak a takarításért felelős személy jelölheti késznek.",
 
+        loginRequired:
+            "A takarítás befejezéséhez jelentkezzen be.",
+
+        enterEmailPassword:
+            "Adja meg az e-mail-címet és a jelszót.",
+
+        loggingIn:
+            "Bejelentkezés...",
+
+        loginSuccessful:
+            "Sikeres bejelentkezés.",
+
+        sendingReset:
+            "Jelszó-visszaállító e-mail küldése...",
+
+        resetSent:
+            "A jelszó-visszaállító e-mail elküldve.",
+
+        enterEmailFirst:
+            "Először adja meg az e-mail-címét.",
+
+        updatingPassword:
+            "Jelszó frissítése...",
+
+        passwordUpdated:
+            "A jelszó sikeresen frissítve.",
+
+        passwordUpdatedLogin:
+            "A jelszó frissítve. Most már bejelentkezhet.",
+
+        enterPasswords:
+            "Adja meg és erősítse meg az új jelszót.",
+
+        passwordsDoNotMatch:
+            "A jelszavak nem egyeznek."
     },
 
+
+    // ========================================================
+    // BULGARIAN
+    // ========================================================
 
     bg: {
 
         language: "🌐 Език",
 
-        title: "График за почистване",
+        resetPasswordTitle: "Нулиране на паролата",
+        newPassword: "Нова парола",
+        confirmPassword: "Потвърдете новата парола",
+        updatePassword: "Актуализиране на паролата",
+        forgotPassword: "Забравена парола?",
+        logout: "Изход",
+        login: "Вход",
+        email: "Имейл",
+        password: "Парола",
 
+        title: "График за почистване",
         subtitle: "Обща всекидневна и кухня",
 
         thisWeek: "Тази седмица",
-
         date: "Дата",
 
         thursdayNote:
             "Ако почистването в петък не е възможно, то трябва да бъде извършено в четвъртък.",
 
         responsible: "Отговорник",
-
         time: "Час",
 
         cleaningSchedule: "График за почистване",
-
         week: "Седмица",
 
         previous: "← Предишна",
-
         next: "Следваща →",
 
         cleaningTasks: "Задачи за почистване",
 
         task1: "Почистване с прахосмукачка на подовете",
-
         task2: "Измиване на подовете",
-
         task3: "Избърсване на всички повърхности",
-
         task4: "Почистване на печката и котлоните",
-
         task5: "Почистване на мивката и кухненската зона",
-
         task6: "Изхвърляне на боклука при необходимост",
-
         task7: "Пране на кухненските кърпи отделно",
-
         task8: "Пране на моповете отделно",
-
         task9: "Пране на кърпите за баня отделно",
 
         complete: "Маркиране на почистването като завършено",
-
         completed: "✓ Почистването е завършено",
-
         completedBy: "Извършено от",
-
         notCompleted: "Не е завършено",
 
         notYetAvailable: "Достъпно от четвъртък до петък",
-
         deadlinePassed: "Крайният срок изтече",
 
         notResponsible:
-            "Само отговорният за почистването може да го завърши."
+            "Само отговорният за почистването може да го завърши.",
 
+        loginRequired:
+            "Влезте в профила си, за да завършите почистването.",
+
+        enterEmailPassword:
+            "Моля, въведете имейл и парола.",
+
+        loggingIn:
+            "Влизане...",
+
+        loginSuccessful:
+            "Влизането е успешно.",
+
+        sendingReset:
+            "Изпращане на имейл за възстановяване на паролата...",
+
+        resetSent:
+            "Имейлът за възстановяване на паролата е изпратен.",
+
+        enterEmailFirst:
+            "Моля, първо въведете имейл адреса си.",
+
+        updatingPassword:
+            "Актуализиране на паролата...",
+
+        passwordUpdated:
+            "Паролата е актуализирана успешно.",
+
+        passwordUpdatedLogin:
+            "Паролата е актуализирана. Вече можете да влезете.",
+
+        enterPasswords:
+            "Моля, въведете и потвърдете новата парола.",
+
+        passwordsDoNotMatch:
+            "Паролите не съвпадат."
     },
 
+
+    // ========================================================
+    // ROMANIAN
+    // ========================================================
 
     ro: {
 
         language: "🌐 Limbă",
 
-        title: "Program de curățenie",
+        resetPasswordTitle: "Resetare parolă",
+        newPassword: "Parolă nouă",
+        confirmPassword: "Confirmă parola nouă",
+        updatePassword: "Actualizează parola",
+        forgotPassword: "Ai uitat parola?",
+        logout: "Deconectare",
+        login: "Autentificare",
+        email: "E-mail",
+        password: "Parolă",
 
+        title: "Program de curățenie",
         subtitle: "Living și bucătărie comune",
 
         thisWeek: "Săptămâna aceasta",
-
         date: "Data",
 
         thursdayNote:
             "Dacă vineri nu este posibil, curățenia trebuie făcută joi.",
 
         responsible: "Responsabil",
-
         time: "Ora",
 
         cleaningSchedule: "Program de curățenie",
-
         week: "Săptămâna",
 
         previous: "← Anterior",
-
         next: "Următoarea →",
 
         cleaningTasks: "Sarcini de curățenie",
 
         task1: "Aspirarea podelelor din living și bucătărie",
-
         task2: "Spălarea podelelor din living și bucătărie",
-
         task3: "Ștergerea tuturor suprafețelor",
-
         task4: "Curățarea aragazului și plitei",
-
         task5: "Curățarea chiuvetei și a zonei de bucătărie",
-
         task6: "Golirea gunoiului când este necesar",
-
         task7: "Spălarea separată a lavetelor de bucătărie",
-
         task8: "Spălarea separată a mopurilor",
-
         task9: "Spălarea separată a lavetelor de baie",
 
         complete: "Marchează curățenia ca finalizată",
-
         completed: "✓ Curățenia a fost finalizată",
-
         completedBy: "Finalizat de",
-
         notCompleted: "Nu este finalizată",
 
         notYetAvailable: "Disponibil joi–vineri",
-
         deadlinePassed: "Termenul a expirat",
 
         notResponsible:
-            "Doar persoana responsabilă poate finaliza curățenia."
+            "Doar persoana responsabilă poate finaliza curățenia.",
 
+        loginRequired:
+            "Autentifică-te pentru a finaliza curățenia.",
+
+        enterEmailPassword:
+            "Introdu e-mailul și parola.",
+
+        loggingIn:
+            "Autentificare...",
+
+        loginSuccessful:
+            "Autentificare reușită.",
+
+        sendingReset:
+            "Se trimite e-mailul pentru resetarea parolei...",
+
+        resetSent:
+            "E-mailul pentru resetarea parolei a fost trimis.",
+
+        enterEmailFirst:
+            "Introdu mai întâi adresa de e-mail.",
+
+        updatingPassword:
+            "Se actualizează parola...",
+
+        passwordUpdated:
+            "Parola a fost actualizată cu succes.",
+
+        passwordUpdatedLogin:
+            "Parola a fost actualizată. Acum te poți autentifica.",
+
+        enterPasswords:
+            "Introdu și confirmă noua parolă.",
+
+        passwordsDoNotMatch:
+            "Parolele nu coincid."
     },
 
+
+    // ========================================================
+    // POLISH
+    // ========================================================
 
     pl: {
 
         language: "🌐 Język",
 
-        title: "Harmonogram sprzątania",
+        resetPasswordTitle: "Resetowanie hasła",
+        newPassword: "Nowe hasło",
+        confirmPassword: "Potwierdź nowe hasło",
+        updatePassword: "Zaktualizuj hasło",
+        forgotPassword: "Nie pamiętasz hasła?",
+        logout: "Wyloguj się",
+        login: "Zaloguj się",
+        email: "E-mail",
+        password: "Hasło",
 
+        title: "Harmonogram sprzątania",
         subtitle: "Wspólny salon i kuchnia",
 
         thisWeek: "Ten tydzień",
-
         date: "Data",
 
         thursdayNote:
             "Jeśli sprzątanie w piątek nie jest możliwe, należy je wykonać w czwartek.",
 
         responsible: "Odpowiedzialny",
-
         time: "Godzina",
 
         cleaningSchedule: "Harmonogram sprzątania",
-
         week: "Tydzień",
 
         previous: "← Poprzedni",
-
         next: "Następny →",
 
         cleaningTasks: "Zadania sprzątania",
 
         task1: "Odkurzanie podłóg w salonie i kuchni",
-
         task2: "Mycie podłóg w salonie i kuchni",
-
         task3: "Wytarcie wszystkich powierzchni",
-
         task4: "Czyszczenie kuchenki i płyty grzewczej",
-
         task5: "Czyszczenie zlewu i obszaru kuchennego",
-
         task6: "Wyrzucenie śmieci w razie potrzeby",
-
         task7: "Pranie ściereczek kuchennych osobno",
-
         task8: "Pranie mopów osobno",
-
         task9: "Pranie ściereczek łazienkowych osobno",
 
         complete: "Oznacz sprzątanie jako wykonane",
-
         completed: "✓ Sprzątanie wykonane",
-
         completedBy: "Wykonane przez",
-
         notCompleted: "Nie wykonano",
 
         notYetAvailable: "Dostępne w czwartek–piątek",
-
         deadlinePassed: "Termin minął",
 
         notResponsible:
-            "Tylko osoba odpowiedzialna może zakończyć sprzątanie."
+            "Tylko osoba odpowiedzialna może zakończyć sprzątanie.",
 
+        loginRequired:
+            "Zaloguj się, aby zakończyć sprzątanie.",
+
+        enterEmailPassword:
+            "Wprowadź e-mail i hasło.",
+
+        loggingIn:
+            "Logowanie...",
+
+        loginSuccessful:
+            "Logowanie zakończone sukcesem.",
+
+        sendingReset:
+            "Wysyłanie wiadomości dotyczącej resetowania hasła...",
+
+        resetSent:
+            "Wiadomość dotycząca resetowania hasła została wysłana.",
+
+        enterEmailFirst:
+            "Najpierw wprowadź adres e-mail.",
+
+        updatingPassword:
+            "Aktualizowanie hasła...",
+
+        passwordUpdated:
+            "Hasło zostało pomyślnie zaktualizowane.",
+
+        passwordUpdatedLogin:
+            "Hasło zostało zaktualizowane. Możesz się teraz zalogować.",
+
+        enterPasswords:
+            "Wprowadź i potwierdź nowe hasło.",
+
+        passwordsDoNotMatch:
+            "Hasła nie są takie same."
     },
 
+
+    // ========================================================
+    // GREEK
+    // ========================================================
 
     el: {
 
         language: "🌐 Γλώσσα",
 
-        title: "Πρόγραμμα καθαρισμού",
+        resetPasswordTitle: "Επαναφορά κωδικού πρόσβασης",
+        newPassword: "Νέος κωδικός πρόσβασης",
+        confirmPassword: "Επιβεβαίωση νέου κωδικού πρόσβασης",
+        updatePassword: "Ενημέρωση κωδικού πρόσβασης",
+        forgotPassword: "Ξεχάσατε τον κωδικό πρόσβασης;",
+        logout: "Αποσύνδεση",
+        login: "Σύνδεση",
+        email: "Email",
+        password: "Κωδικός πρόσβασης",
 
+        title: "Πρόγραμμα καθαρισμού",
         subtitle: "Κοινόχρηστο σαλόνι και κουζίνα",
 
         thisWeek: "Αυτή την εβδομάδα",
-
         date: "Ημερομηνία",
 
         thursdayNote:
             "Εάν δεν είναι δυνατό την Παρασκευή, ο καθαρισμός πρέπει να γίνει την Πέμπτη.",
 
         responsible: "Υπεύθυνος",
-
         time: "Ώρα",
 
         cleaningSchedule: "Πρόγραμμα καθαρισμού",
-
         week: "Εβδομάδα",
 
         previous: "← Προηγούμενη",
-
         next: "Επόμενη →",
 
         cleaningTasks: "Εργασίες καθαρισμού",
 
         task1: "Σκούπισμα με ηλεκτρική σκούπα",
-
         task2: "Σφουγγάρισμα του σαλονιού και της κουζίνας",
-
         task3: "Καθαρισμός όλων των επιφανειών",
-
         task4: "Καθαρισμός της κουζίνας και των εστιών",
-
         task5: "Καθαρισμός του νεροχύτη και της κουζίνας",
-
         task6: "Άδειασμα των σκουπιδιών όταν χρειάζεται",
-
         task7: "Ξεχωριστό πλύσιμο των πανιών κουζίνας",
-
         task8: "Ξεχωριστό πλύσιμο των σφουγγαρίστρων",
-
         task9: "Ξεχωριστό πλύσιμο των πανιών μπάνιου",
 
         complete: "Σήμανση καθαρισμού ως ολοκληρωμένου",
-
         completed: "✓ Ο καθαρισμός ολοκληρώθηκε",
-
         completedBy: "Ολοκληρώθηκε από",
-
         notCompleted: "Δεν ολοκληρώθηκε",
 
         notYetAvailable: "Διαθέσιμο Πέμπτη–Παρασκευή",
-
         deadlinePassed: "Η προθεσμία έληξε",
 
         notResponsible:
-            "Μόνο ο υπεύθυνος μπορεί να ολοκληρώσει τον καθαρισμό."
+            "Μόνο ο υπεύθυνος μπορεί να ολοκληρώσει τον καθαρισμό.",
 
+        loginRequired:
+            "Συνδεθείτε για να ολοκληρώσετε τον καθαρισμό.",
+
+        enterEmailPassword:
+            "Εισαγάγετε email και κωδικό πρόσβασης.",
+
+        loggingIn:
+            "Σύνδεση...",
+
+        loginSuccessful:
+            "Η σύνδεση ήταν επιτυχής.",
+
+        sendingReset:
+            "Αποστολή email επαναφοράς κωδικού πρόσβασης...",
+
+        resetSent:
+            "Το email επαναφοράς στάλθηκε.",
+
+        enterEmailFirst:
+            "Εισαγάγετε πρώτα τη διεύθυνση email.",
+
+        updatingPassword:
+            "Ενημέρωση κωδικού πρόσβασης...",
+
+        passwordUpdated:
+            "Ο κωδικός πρόσβασης ενημερώθηκε.",
+
+        passwordUpdatedLogin:
+            "Ο κωδικός πρόσβασης ενημερώθηκε. Μπορείτε τώρα να συνδεθείτε.",
+
+        enterPasswords:
+            "Εισαγάγετε και επιβεβαιώστε τον νέο κωδικό πρόσβασης.",
+
+        passwordsDoNotMatch:
+            "Οι κωδικοί πρόσβασης δεν ταιριάζουν."
     },
 
+
+    // ========================================================
+    // CROATIAN
+    // ========================================================
 
     hr: {
 
         language: "🌐 Jezik",
 
-        title: "Raspored čišćenja",
+        resetPasswordTitle: "Ponovno postavljanje lozinke",
+        newPassword: "Nova lozinka",
+        confirmPassword: "Potvrdite novu lozinku",
+        updatePassword: "Ažuriraj lozinku",
+        forgotPassword: "Zaboravili ste lozinku?",
+        logout: "Odjava",
+        login: "Prijava",
+        email: "E-pošta",
+        password: "Lozinka",
 
+        title: "Raspored čišćenja",
         subtitle: "Zajednički dnevni boravak i kuhinja",
 
         thisWeek: "Ovaj tjedan",
-
         date: "Datum",
 
         thursdayNote:
             "Ako čišćenje u petak nije moguće, treba ga obaviti u četvrtak.",
 
         responsible: "Odgovorna osoba",
-
         time: "Vrijeme",
 
         cleaningSchedule: "Raspored čišćenja",
-
         week: "Tjedan",
 
         previous: "← Prethodni",
-
         next: "Sljedeći →",
 
         cleaningTasks: "Zadaci čišćenja",
 
         task1: "Usisati podove dnevnog boravka i kuhinje",
-
         task2: "Oprati podove dnevnog boravka i kuhinje",
-
         task3: "Obrisati sve površine",
-
         task4: "Očistiti štednjak i ploču za kuhanje",
-
         task5: "Očistiti sudoper i kuhinjski prostor",
-
         task6: "Isprazniti smeće prema potrebi",
-
         task7: "Kuhinjske krpe prati odvojeno",
-
         task8: "Mopove prati odvojeno",
-
         task9: "Krpe za kupaonicu prati odvojeno",
 
         complete: "Označi čišćenje kao završeno",
-
         completed: "✓ Čišćenje završeno",
-
         completedBy: "Završio",
-
         notCompleted: "Nije završeno",
 
         notYetAvailable: "Dostupno četvrtkom i petkom",
-
         deadlinePassed: "Rok je istekao",
 
         notResponsible:
-            "Samo odgovorna osoba može završiti čišćenje."
+            "Samo odgovorna osoba može završiti čišćenje.",
 
+        loginRequired:
+            "Prijavite se kako biste završili čišćenje.",
+
+        enterEmailPassword:
+            "Unesite e-poštu i lozinku.",
+
+        loggingIn:
+            "Prijava...",
+
+        loginSuccessful:
+            "Prijava je uspješna.",
+
+        sendingReset:
+            "Slanje e-pošte za ponovno postavljanje lozinke...",
+
+        resetSent:
+            "E-pošta za ponovno postavljanje lozinke je poslana.",
+
+        enterEmailFirst:
+            "Najprije unesite svoju adresu e-pošte.",
+
+        updatingPassword:
+            "Ažuriranje lozinke...",
+
+        passwordUpdated:
+            "Lozinka je uspješno ažurirana.",
+
+        passwordUpdatedLogin:
+            "Lozinka je ažurirana. Sada se možete prijaviti.",
+
+        enterPasswords:
+            "Unesite i potvrdite novu lozinku.",
+
+        passwordsDoNotMatch:
+            "Lozinke se ne podudaraju."
     },
 
+
+    // ========================================================
+    // SLOVAK
+    // ========================================================
 
     sk: {
 
         language: "🌐 Jazyk",
 
-        title: "Rozpis upratovania",
+        resetPasswordTitle: "Obnovenie hesla",
+        newPassword: "Nové heslo",
+        confirmPassword: "Potvrďte nové heslo",
+        updatePassword: "Aktualizovať heslo",
+        forgotPassword: "Zabudli ste heslo?",
+        logout: "Odhlásiť sa",
+        login: "Prihlásiť sa",
+        email: "E-mail",
+        password: "Heslo",
 
+        title: "Rozpis upratovania",
         subtitle: "Spoločná obývačka a kuchyňa",
 
         thisWeek: "Tento týždeň",
-
         date: "Dátum",
 
         thursdayNote:
             "Ak upratovanie v piatok nie je možné, musí sa vykonať vo štvrtok.",
 
         responsible: "Zodpovedná osoba",
-
         time: "Čas",
 
         cleaningSchedule: "Rozpis upratovania",
-
         week: "Týždeň",
 
         previous: "← Predchádzajúci",
-
         next: "Ďalší →",
 
         cleaningTasks: "Úlohy upratovania",
 
         task1: "Vysávať podlahy v obývačke a kuchyni",
-
         task2: "Umyť podlahy v obývačke a kuchyni",
-
         task3: "Utrieť všetky povrchy",
-
         task4: "Vyčistiť sporák a varnú dosku",
-
         task5: "Vyčistiť drez a kuchynský priestor",
-
         task6: "Vyniesť odpad podľa potreby",
-
         task7: "Kuchynské utierky prať oddelene",
-
         task8: "Mopy prať oddelene",
-
         task9: "Utierky z kúpeľne prať oddelene",
 
         complete: "Označiť upratovanie ako dokončené",
-
         completed: "✓ Upratovanie dokončené",
-
         completedBy: "Dokončil",
-
         notCompleted: "Nedokončené",
 
         notYetAvailable: "Dostupné vo štvrtok–piatok",
-
         deadlinePassed: "Termín uplynul",
 
         notResponsible:
-            "Upratovanie môže dokončiť iba zodpovedná osoba."
+            "Upratovanie môže dokončiť iba zodpovedná osoba.",
 
+        loginRequired:
+            "Prihláste sa, aby ste mohli dokončiť upratovanie.",
+
+        enterEmailPassword:
+            "Zadajte e-mail a heslo.",
+
+        loggingIn:
+            "Prihlasovanie...",
+
+        loginSuccessful:
+            "Prihlásenie bolo úspešné.",
+
+        sendingReset:
+            "Odosielanie e-mailu na obnovenie hesla...",
+
+        resetSent:
+            "E-mail na obnovenie hesla bol odoslaný.",
+
+        enterEmailFirst:
+            "Najprv zadajte svoju e-mailovú adresu.",
+
+        updatingPassword:
+            "Aktualizácia hesla...",
+
+        passwordUpdated:
+            "Heslo bolo úspešne aktualizované.",
+
+        passwordUpdatedLogin:
+            "Heslo bolo aktualizované. Teraz sa môžete prihlásiť.",
+
+        enterPasswords:
+            "Zadajte a potvrďte nové heslo.",
+
+        passwordsDoNotMatch:
+            "Heslá sa nezhodujú."
     },
 
+
+    // ========================================================
+    // CZECH
+    // ========================================================
 
     cs: {
 
         language: "🌐 Jazyk",
 
-        title: "Úklidový plán",
+        resetPasswordTitle: "Obnovení hesla",
+        newPassword: "Nové heslo",
+        confirmPassword: "Potvrďte nové heslo",
+        updatePassword: "Aktualizovat heslo",
+        forgotPassword: "Zapomněli jste heslo?",
+        logout: "Odhlásit se",
+        login: "Přihlásit se",
+        email: "E-mail",
+        password: "Heslo",
 
+        title: "Úklidový plán",
         subtitle: "Společný obývací pokoj a kuchyň",
 
         thisWeek: "Tento týden",
-
         date: "Datum",
 
         thursdayNote:
             "Pokud není možné uklidit v pátek, úklid musí být proveden ve čtvrtek.",
 
         responsible: "Odpovědná osoba",
-
         time: "Čas",
 
         cleaningSchedule: "Úklidový plán",
-
         week: "Týden",
 
         previous: "← Předchozí",
-
         next: "Další →",
 
         cleaningTasks: "Úklidové úkoly",
 
         task1: "Vysát podlahy v obývacím pokoji a kuchyni",
-
         task2: "Vytřít podlahy v obývacím pokoji a kuchyni",
-
         task3: "Otřít všechny povrchy",
-
         task4: "Vyčistit sporák a varnou desku",
-
         task5: "Vyčistit dřez a kuchyňský prostor",
-
         task6: "Vynést odpad podle potřeby",
-
         task7: "Kuchyňské utěrky prát samostatně",
-
         task8: "Mopy prát samostatně",
-
         task9: "Utěrky z koupelny prát samostatně",
 
         complete: "Označit úklid jako dokončený",
-
         completed: "✓ Úklid dokončen",
-
         completedBy: "Dokončil",
-
         notCompleted: "Nedokončeno",
 
         notYetAvailable: "Dostupné ve čtvrtek–pátek",
-
         deadlinePassed: "Termín vypršel",
 
         notResponsible:
-            "Úklid může dokončit pouze odpovědná osoba."
+            "Úklid může dokončit pouze odpovědná osoba.",
 
+        loginRequired:
+            "Přihlaste se, abyste mohli dokončit úklid.",
+
+        enterEmailPassword:
+            "Zadejte e-mail a heslo.",
+
+        loggingIn:
+            "Přihlašování...",
+
+        loginSuccessful:
+            "Přihlášení bylo úspěšné.",
+
+        sendingReset:
+            "Odesílání e-mailu pro obnovení hesla...",
+
+        resetSent:
+            "E-mail pro obnovení hesla byl odeslán.",
+
+        enterEmailFirst:
+            "Nejprve zadejte svou e-mailovou adresu.",
+
+        updatingPassword:
+            "Aktualizace hesla...",
+
+        passwordUpdated:
+            "Heslo bylo úspěšně aktualizováno.",
+
+        passwordUpdatedLogin:
+            "Heslo bylo aktualizováno. Nyní se můžete přihlásit.",
+
+        enterPasswords:
+            "Zadejte a potvrďte nové heslo.",
+
+        passwordsDoNotMatch:
+            "Hesla se neshodují."
     },
 
+
+    // ========================================================
+    // TIGRINYA
+    // ========================================================
 
     ti: {
 
         language: "🌐 ቋንቋ",
 
-        title: "መደብ ጽሬት",
+        resetPasswordTitle: "መሕለፊ ቃል ዳግማይ ኣዘጋጅ",
+        newPassword: "ሓድሽ መሕለፊ ቃል",
+        confirmPassword: "ሓድሽ መሕለፊ ቃል ኣረጋግጽ",
+        updatePassword: "መሕለፊ ቃል ኣሐድስ",
+        forgotPassword: "መሕለፊ ቃል ረሲዕካ?",
+        logout: "ውጻእ",
+        login: "እቶ",
+        email: "ኢ-መይል",
+        password: "መሕለፊ ቃል",
 
+        title: "መደብ ጽሬት",
         subtitle: "ሓባራዊ መንበሪ ክፍልን ክሽነን",
 
         thisWeek: "ናይዚ ሰሙን",
-
         date: "ዕለት",
 
         thursdayNote:
             "ዓርቢ ምጽራይ እንተዘይከኣል፣ ምጽራይ ሓሙስ ክግበር ኣለዎ።",
 
         responsible: "ሓላፊ",
-
         time: "ግዜ",
 
         cleaningSchedule: "መደብ ጽሬት",
-
         week: "ሰሙን",
 
         previous: "← ዝሓለፈ",
-
         next: "ዝመጽእ →",
 
         cleaningTasks: "ስራሕ ጽሬት",
 
         task1: "ኣብ መንበሪ ክፍልን ክሽነን ብቫኩም ጽረይ",
-
         task2: "መንበሪ ክፍልን ክሽነን ምድሪ ምሕጻብ",
-
         task3: "ኩሎም ገጽታት ኣጽርይ",
-
         task4: "ምድጃን መብሰሊ ቦታን ኣጽርይ",
-
         task5: "ማጽደጃን ከባቢ ክሽነን ኣጽርይ",
-
         task6: "ኣብ ዘድሊ ግዜ ጉሓፍ ኣውጽእ",
-
         task7: "ጨርቂ ክሽነ ብፍሉይ ሕጸብ",
-
         task8: "ሞፕ ብፍሉይ ሕጸብ",
-
         task9: "ጨርቂ መሕጸቢ ቤት ብፍሉይ ሕጸብ",
 
         complete: "ጽሬት ከም ዝተወድአ ምልክት ግበር",
-
         completed: "✓ ጽሬት ተወዲኡ",
-
         completedBy: "ዝወድኦ",
-
         notCompleted: "ኣይተወድአን",
 
         notYetAvailable: "ካብ ሓሙስ ክሳብ ዓርቢ ይፍቀድ",
-
         deadlinePassed: "ግዜ ገደብ ሓሊፉ",
 
         notResponsible:
-            "ጽሬት ክውድእ ዝኽእል ሓላፊ ጽሬት ጥራይ እዩ።"
+            "ጽሬት ክውድእ ዝኽእል ሓላፊ ጽሬት ጥራይ እዩ።",
 
+        loginRequired:
+            "ጽሬት ንምውዳእ እቶ።",
+
+        enterEmailPassword:
+            "ኢ-መይልን መሕለፊ ቃልን ኣእትው።",
+
+        loggingIn:
+            "ይኣቱ ኣሎ...",
+
+        loginSuccessful:
+            "ብዓወት ኣቲኻ።",
+
+        sendingReset:
+            "ናይ መሕለፊ ቃል መልእኽቲ ይስደድ ኣሎ...",
+
+        resetSent:
+            "ናይ መሕለፊ ቃል መልእኽቲ ተላኢኹ።",
+
+        enterEmailFirst:
+            "ቀዳማይ ኢ-መይልኻ ኣእቱ።",
+
+        updatingPassword:
+            "መሕለፊ ቃል ይሕደስ ኣሎ...",
+
+        passwordUpdated:
+            "መሕለፊ ቃል ብዓወት ተሓዲሱ።",
+
+        passwordUpdatedLogin:
+            "መሕለፊ ቃል ተሓዲሱ። ሕጂ ክትኣቱ ትኽእል።",
+
+        enterPasswords:
+            "ሓድሽ መሕለፊ ቃል ኣእትውን ኣረጋግጽን።",
+
+        passwordsDoNotMatch:
+            "መሕለፊ ቃላት ኣይመሳሰሉን።"
     },
 
+
+    // ========================================================
+    // AMHARIC
+    // ========================================================
 
     am: {
 
         language: "🌐 ቋንቋ",
 
-        title: "የጽዳት መርሃ ግብር",
+        resetPasswordTitle: "የይለፍ ቃል ዳግም ማስጀመር",
+        newPassword: "አዲስ የይለፍ ቃል",
+        confirmPassword: "አዲሱን የይለፍ ቃል ያረጋግጡ",
+        updatePassword: "የይለፍ ቃል አዘምን",
+        forgotPassword: "የይለፍ ቃል ረሱ?",
+        logout: "ውጣ",
+        login: "ግባ",
+        email: "ኢሜይል",
+        password: "የይለፍ ቃል",
 
+        title: "የጽዳት መርሃ ግብር",
         subtitle: "የጋራ ሳሎን እና ወጥ ቤት",
 
         thisWeek: "የዚህ ሳምንት",
-
         date: "ቀን",
 
         thursdayNote:
             "አርብ ማጽዳት ካልተቻለ፣ ጽዳቱ ሐሙስ መከናወን አለበት።",
 
         responsible: "ኃላፊ",
-
         time: "ሰዓት",
 
         cleaningSchedule: "የጽዳት መርሃ ግብር",
-
         week: "ሳምንት",
 
         previous: "← ያለፈው",
-
         next: "ቀጣይ →",
 
         cleaningTasks: "የጽዳት ሥራዎች",
 
         task1: "የሳሎንና የወጥ ቤት ወለል በቫኩም ማጽዳት",
-
         task2: "የሳሎንና የወጥ ቤት ወለል ማጠብ",
-
         task3: "ሁሉንም የቤት ንጣፎች ማጽዳት",
-
         task4: "ምድጃና የማብሰያ ቦታ ማጽዳት",
-
         task5: "ሲንኩንና የወጥ ቤቱን አካባቢ ማጽዳት",
-
         task6: "በሚያስፈልግበት ጊዜ ቆሻሻ ማስወገድ",
-
         task7: "የወጥ ቤት ጨርቆችን ለየብቻ ማጠብ",
-
         task8: "ሞፖችን ለየብቻ ማጠብ",
-
         task9: "የመታጠቢያ ቤት ጨርቆችን ለየብቻ ማጠብ",
 
         complete: "ጽዳቱ እንደተጠናቀቀ ምልክት ማድረግ",
-
         completed: "✓ ጽዳት ተጠናቋል",
-
         completedBy: "ያጠናቀቀው",
-
         notCompleted: "አልተጠናቀቀም",
 
         notYetAvailable: "ሐሙስ–ዓርብ ይገኛል",
-
         deadlinePassed: "የመጨረሻ ጊዜው አልፏል",
 
         notResponsible:
-            "ጽዳቱን ማጠናቀቅ የሚችለው ኃላፊው ብቻ ነው።"
+            "ጽዳቱን ማጠናቀቅ የሚችለው ኃላፊው ብቻ ነው።",
 
+        loginRequired:
+            "ጽዳቱን ለማጠናቀቅ ይግቡ።",
+
+        enterEmailPassword:
+            "ኢሜይል እና የይለፍ ቃል ያስገቡ።",
+
+        loggingIn:
+            "በመግባት ላይ...",
+
+        loginSuccessful:
+            "በተሳካ ሁኔታ ገብተዋል።",
+
+        sendingReset:
+            "የይለፍ ቃል መመለሻ ኢሜይል በመላክ ላይ...",
+
+        resetSent:
+            "የይለፍ ቃል መመለሻ ኢሜይል ተልኳል።",
+
+        enterEmailFirst:
+            "መጀመሪያ የኢሜይል አድራሻዎን ያስገቡ።",
+
+        updatingPassword:
+            "የይለፍ ቃል በማዘመን ላይ...",
+
+        passwordUpdated:
+            "የይለፍ ቃሉ በተሳካ ሁኔታ ታድሷል።",
+
+        passwordUpdatedLogin:
+            "የይለፍ ቃሉ ታድሷል። አሁን መግባት ይችላሉ።",
+
+        enterPasswords:
+            "አዲሱን የይለፍ ቃል ያስገቡ እና ያረጋግጡ።",
+
+        passwordsDoNotMatch:
+            "የይለፍ ቃሎቹ አይዛመዱም።"
     }
 
 };
@@ -894,6 +1254,8 @@ const languageLocales = {
     am: "am-ET"
 
 };
+
+
 // ============================================================
 // CURRENT LANGUAGE
 // ============================================================
@@ -916,6 +1278,48 @@ let selectedWeek = 0;
 // ============================================================
 // HTML ELEMENTS
 // ============================================================
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const userSection =
+    document.getElementById("userSection");
+
+const emailInput =
+    document.getElementById("emailInput");
+
+const passwordInput =
+    document.getElementById("passwordInput");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+const loginMessage =
+    document.getElementById("loginMessage");
+
+const loggedInUser =
+    document.getElementById("loggedInUser");
+
+const forgotPasswordButton =
+    document.getElementById("forgotPasswordButton");
+
+const resetPasswordForm =
+    document.getElementById("resetPasswordForm");
+
+const newPasswordInput =
+    document.getElementById("newPasswordInput");
+
+const confirmPasswordInput =
+    document.getElementById("confirmPasswordInput");
+
+const updatePasswordButton =
+    document.getElementById("updatePasswordButton");
+
+const resetPasswordMessage =
+    document.getElementById("resetPasswordMessage");
 
 const completeButton =
     document.getElementById("completeButton");
@@ -943,17 +1347,43 @@ const languageMenu =
 
 
 // ============================================================
-// AUTH UI
+// TRANSLATION HELPER
+// ============================================================
+
+function getTranslation(key) {
+
+    const language =
+        translations[currentLanguage];
+
+    const english =
+        translations.en;
+
+    return (
+        language?.[key] ||
+        english?.[key] ||
+        key
+    );
+
+}
+
+
+// ============================================================
+// UPDATE AUTH UI
 // ============================================================
 
 function updateAuthUI(user) {
 
-    currentUser = user;
+    currentUser = user || null;
 
-    if (user) {
+
+    if (currentUser) {
 
         if (loginForm) {
             loginForm.style.display = "none";
+        }
+
+        if (resetPasswordForm) {
+            resetPasswordForm.style.display = "none";
         }
 
         if (userSection) {
@@ -963,7 +1393,7 @@ function updateAuthUI(user) {
         if (loggedInUser) {
 
             loggedInUser.textContent =
-                user.email || "";
+                currentUser.email || "";
 
         }
 
@@ -983,6 +1413,8 @@ function updateAuthUI(user) {
 
     }
 
+    updateCompleteButton();
+
 }
 
 
@@ -990,11 +1422,14 @@ function updateAuthUI(user) {
 // LOGIN
 // ============================================================
 
-if (loginButton) {
+if (loginForm) {
 
-    loginButton.addEventListener(
-        "click",
-        async function () {
+    loginForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
 
             const email =
                 emailInput
@@ -1012,7 +1447,9 @@ if (loginButton) {
                 if (loginMessage) {
 
                     loginMessage.textContent =
-                        "Please enter email and password.";
+                        getTranslation(
+                            "enterEmailPassword"
+                        );
 
                 }
 
@@ -1021,12 +1458,17 @@ if (loginButton) {
             }
 
 
-            loginButton.disabled = true;
+            if (loginButton) {
+                loginButton.disabled = true;
+            }
+
 
             if (loginMessage) {
 
                 loginMessage.textContent =
-                    "Logging in...";
+                    getTranslation(
+                        "loggingIn"
+                    );
 
             }
 
@@ -1052,13 +1494,13 @@ if (loginButton) {
                 );
 
                 if (loginMessage) {
-
                     loginMessage.textContent =
                         error.message;
-
                 }
 
-                loginButton.disabled = false;
+                if (loginButton) {
+                    loginButton.disabled = false;
+                }
 
                 return;
 
@@ -1071,13 +1513,18 @@ if (loginButton) {
             );
 
 
-            if (loginMessage) {
-                loginMessage.textContent = "";
+            if (passwordInput) {
+                passwordInput.value = "";
             }
 
 
-            if (passwordInput) {
-                passwordInput.value = "";
+            if (loginMessage) {
+
+                loginMessage.textContent =
+                    getTranslation(
+                        "loginSuccessful"
+                    );
+
             }
 
 
@@ -1086,7 +1533,12 @@ if (loginButton) {
             );
 
 
-            loginButton.disabled = false;
+            await loadScheduleFromSupabase();
+
+
+            if (loginButton) {
+                loginButton.disabled = false;
+            }
 
         }
     );
@@ -1139,11 +1591,9 @@ if (logoutButton) {
                 scheduleList.innerHTML = "";
             }
 
-
             if (weekNumberElement) {
                 weekNumberElement.textContent = "";
             }
-
 
             if (weekRangeElement) {
                 weekRangeElement.textContent = "";
@@ -1161,29 +1611,6 @@ if (logoutButton) {
     );
 
 }
-
-
-// ============================================================
-// PASSWORD RECOVERY
-// ============================================================
-
-const forgotPasswordButton =
-    document.getElementById("forgotPasswordButton");
-
-const resetPasswordForm =
-    document.getElementById("resetPasswordForm");
-
-const newPasswordInput =
-    document.getElementById("newPasswordInput");
-
-const confirmPasswordInput =
-    document.getElementById("confirmPasswordInput");
-
-const updatePasswordButton =
-    document.getElementById("updatePasswordButton");
-
-const resetPasswordMessage =
-    document.getElementById("resetPasswordMessage");
 
 
 // ============================================================
@@ -1207,7 +1634,9 @@ if (forgotPasswordButton) {
                 if (loginMessage) {
 
                     loginMessage.textContent =
-                        "Please enter your email address first.";
+                        getTranslation(
+                            "enterEmailFirst"
+                        );
 
                 }
 
@@ -1216,13 +1645,16 @@ if (forgotPasswordButton) {
             }
 
 
-            forgotPasswordButton.disabled = true;
+            forgotPasswordButton.disabled =
+                true;
 
 
             if (loginMessage) {
 
                 loginMessage.textContent =
-                    "Sending password reset email...";
+                    getTranslation(
+                        "sendingReset"
+                    );
 
             }
 
@@ -1248,13 +1680,12 @@ if (forgotPasswordButton) {
                 );
 
                 if (loginMessage) {
-
                     loginMessage.textContent =
                         error.message;
-
                 }
 
-                forgotPasswordButton.disabled = false;
+                forgotPasswordButton.disabled =
+                    false;
 
                 return;
 
@@ -1264,52 +1695,20 @@ if (forgotPasswordButton) {
             if (loginMessage) {
 
                 loginMessage.textContent =
-                    "Password reset email sent. Please check your email.";
+                    getTranslation(
+                        "resetSent"
+                    );
 
             }
 
 
-            forgotPasswordButton.disabled = false;
+            forgotPasswordButton.disabled =
+                false;
 
         }
     );
 
 }
-
-
-// ============================================================
-// SUPABASE AUTH STATE
-// ============================================================
-
-supabaseClient.auth.onAuthStateChange(
-    async function (event, session) {
-
-        console.log(
-            "Auth event:",
-            event
-        );
-
-
-        if (event === "PASSWORD_RECOVERY") {
-
-            console.log(
-                "Password recovery session detected."
-            );
-
-
-            if (loginForm) {
-                loginForm.style.display = "none";
-            }
-
-
-            if (resetPasswordForm) {
-                resetPasswordForm.style.display = "block";
-            }
-
-        }
-
-    }
-);
 
 
 // ============================================================
@@ -1341,7 +1740,9 @@ if (resetPasswordForm) {
                 if (resetPasswordMessage) {
 
                     resetPasswordMessage.textContent =
-                        "Please enter and confirm your new password.";
+                        getTranslation(
+                            "enterPasswords"
+                        );
 
                 }
 
@@ -1355,7 +1756,9 @@ if (resetPasswordForm) {
                 if (resetPasswordMessage) {
 
                     resetPasswordMessage.textContent =
-                        "The passwords do not match.";
+                        getTranslation(
+                            "passwordsDoNotMatch"
+                        );
 
                 }
 
@@ -1364,13 +1767,17 @@ if (resetPasswordForm) {
             }
 
 
-            updatePasswordButton.disabled = true;
+            if (updatePasswordButton) {
+                updatePasswordButton.disabled = true;
+            }
 
 
             if (resetPasswordMessage) {
 
                 resetPasswordMessage.textContent =
-                    "Updating password...";
+                    getTranslation(
+                        "updatingPassword"
+                    );
 
             }
 
@@ -1399,7 +1806,9 @@ if (resetPasswordForm) {
 
                 }
 
-                updatePasswordButton.disabled = false;
+                if (updatePasswordButton) {
+                    updatePasswordButton.disabled = false;
+                }
 
                 return;
 
@@ -1409,13 +1818,20 @@ if (resetPasswordForm) {
             if (resetPasswordMessage) {
 
                 resetPasswordMessage.textContent =
-                    "Password updated successfully.";
+                    getTranslation(
+                        "passwordUpdated"
+                    );
 
             }
 
 
-            newPasswordInput.value = "";
-            confirmPasswordInput.value = "";
+            if (newPasswordInput) {
+                newPasswordInput.value = "";
+            }
+
+            if (confirmPasswordInput) {
+                confirmPasswordInput.value = "";
+            }
 
 
             setTimeout(
@@ -1425,21 +1841,28 @@ if (resetPasswordForm) {
 
 
                     if (resetPasswordForm) {
-                        resetPasswordForm.style.display = "none";
+                        resetPasswordForm.style.display =
+                            "none";
                     }
 
                     if (loginForm) {
-                        loginForm.style.display = "block";
+                        loginForm.style.display =
+                            "block";
                     }
 
                     if (loginMessage) {
 
                         loginMessage.textContent =
-                            "Password updated. You can now log in.";
+                            getTranslation(
+                                "passwordUpdatedLogin"
+                            );
 
                     }
 
-                    updatePasswordButton.disabled = false;
+                    if (updatePasswordButton) {
+                        updatePasswordButton.disabled =
+                            false;
+                    }
 
                 },
                 1500
@@ -1451,6 +1874,90 @@ if (resetPasswordForm) {
 }
 
 
+// ============================================================
+// SUPABASE AUTH STATE
+// ONLY ONE AUTH LISTENER
+// ============================================================
+
+supabaseClient.auth.onAuthStateChange(
+    function (event, session) {
+
+        console.log(
+            "Auth event:",
+            event
+        );
+
+
+        if (event === "PASSWORD_RECOVERY") {
+
+            if (loginForm) {
+                loginForm.style.display =
+                    "none";
+            }
+
+            if (userSection) {
+                userSection.style.display =
+                    "none";
+            }
+
+            if (resetPasswordForm) {
+                resetPasswordForm.style.display =
+                    "block";
+            }
+
+            return;
+
+        }
+
+
+        updateAuthUI(
+            session
+                ? session.user
+                : null
+        );
+
+
+        if (event === "SIGNED_OUT") {
+
+            scheduleData = [];
+
+            selectedWeek = 0;
+
+            if (scheduleList) {
+                scheduleList.innerHTML = "";
+            }
+
+            if (weekNumberElement) {
+                weekNumberElement.textContent = "";
+            }
+
+            if (weekRangeElement) {
+                weekRangeElement.textContent = "";
+            }
+
+            return;
+
+        }
+
+
+        if (
+            event === "SIGNED_IN" &&
+            session
+        ) {
+
+            setTimeout(
+                async function () {
+
+                    await loadScheduleFromSupabase();
+
+                },
+                0
+            );
+
+        }
+
+    }
+);
 
 
 // ============================================================
@@ -1545,9 +2052,7 @@ function getScheduleDate() {
 
 
     if (!schedule) {
-
         return new Date(scheduleStart);
-
     }
 
 
@@ -1569,9 +2074,7 @@ function getResponsiblePerson() {
         !scheduleData ||
         !scheduleData[selectedWeek]
     ) {
-
         return "";
-
     }
 
 
@@ -1684,15 +2187,10 @@ function formatDate(date) {
     return date.toLocaleDateString(
         locale,
         {
-
             weekday: "long",
-
             day: "2-digit",
-
             month: "2-digit",
-
             year: "numeric"
-
         }
     );
 
@@ -1742,13 +2240,9 @@ function getWeekRange(date) {
         monday.toLocaleDateString(
             locale,
             {
-
                 day: "2-digit",
-
                 month: "short",
-
                 year: "numeric"
-
             }
         )
 
@@ -1761,13 +2255,9 @@ function getWeekRange(date) {
         sunday.toLocaleDateString(
             locale,
             {
-
                 day: "2-digit",
-
                 month: "short",
-
                 year: "numeric"
-
             }
         )
 
@@ -1851,7 +2341,7 @@ function isCleaningTooEarly(date) {
 
 
 // ============================================================
-// CHECK IF CURRENT USER IS RESPONSIBLE
+// CURRENT USER RESPONSIBLE?
 // ============================================================
 
 function isCurrentUserResponsible() {
@@ -1884,10 +2374,35 @@ function isCurrentUserResponsible() {
 
 
 // ============================================================
+// COMPLETED
+// ============================================================
+
+function isCompleted() {
+
+    const schedule =
+        scheduleData[selectedWeek];
+
+
+    if (!schedule) {
+        return false;
+    }
+
+
+    return schedule.completed === true;
+
+}
+
+
+// ============================================================
 // CAN COMPLETE CLEANING
 // ============================================================
 
 function canCompleteCleaning(date) {
+
+    if (!currentUser) {
+        return false;
+    }
+
 
     if (!isCurrentUserResponsible()) {
         return false;
@@ -1915,26 +2430,6 @@ function canCompleteCleaning(date) {
 
 
 // ============================================================
-// COMPLETED
-// ============================================================
-
-function isCompleted(date) {
-
-    const schedule =
-        scheduleData[selectedWeek];
-
-
-    if (!schedule) {
-        return false;
-    }
-
-
-    return schedule.completed === true;
-
-}
-
-
-// ============================================================
 // LOAD TASKS
 // ============================================================
 
@@ -1953,7 +2448,7 @@ function loadTasks(date) {
         isCurrentUserResponsible();
 
     const completed =
-        isCompleted(date);
+        isCompleted();
 
 
     tasks.forEach(
@@ -1982,7 +2477,7 @@ function loadTasks(date) {
 
 
 // ============================================================
-// COMPLETE BUTTON
+// UPDATE COMPLETE BUTTON
 // ============================================================
 
 function updateCompleteButton() {
@@ -1995,19 +2490,40 @@ function updateCompleteButton() {
     const date =
         getScheduleDate();
 
-    const t =
-        translations[currentLanguage];
+
+    // --------------------------------------------------------
+    // Not logged in
+    // --------------------------------------------------------
+
+    if (!currentUser) {
+
+        completeButton.textContent =
+            getTranslation(
+                "loginRequired"
+            );
+
+        completeButton.classList.remove(
+            "completed"
+        );
+
+        completeButton.disabled =
+            true;
+
+        return;
+
+    }
 
 
     // --------------------------------------------------------
-    // Not logged in / not responsible
+    // Not responsible
     // --------------------------------------------------------
 
     if (!isCurrentUserResponsible()) {
 
         completeButton.textContent =
-            t.notResponsible ||
-            "Only the responsible resident can complete this cleaning.";
+            getTranslation(
+                "notResponsible"
+            );
 
         completeButton.classList.remove(
             "completed"
@@ -2025,10 +2541,12 @@ function updateCompleteButton() {
     // Already completed
     // --------------------------------------------------------
 
-    if (isCompleted(date)) {
+    if (isCompleted()) {
 
         completeButton.textContent =
-            t.completed;
+            getTranslation(
+                "completed"
+            );
 
         completeButton.classList.add(
             "completed"
@@ -2049,7 +2567,9 @@ function updateCompleteButton() {
     if (isCleaningTooEarly(date)) {
 
         completeButton.textContent =
-            t.notYetAvailable;
+            getTranslation(
+                "notYetAvailable"
+            );
 
         completeButton.classList.remove(
             "completed"
@@ -2070,7 +2590,9 @@ function updateCompleteButton() {
     if (isCleaningDeadlinePassed(date)) {
 
         completeButton.textContent =
-            t.deadlinePassed;
+            getTranslation(
+                "deadlinePassed"
+            );
 
         completeButton.classList.remove(
             "completed"
@@ -2089,7 +2611,9 @@ function updateCompleteButton() {
     // --------------------------------------------------------
 
     completeButton.textContent =
-        t.complete;
+        getTranslation(
+            "complete"
+        );
 
     completeButton.classList.remove(
         "completed"
@@ -2144,6 +2668,63 @@ function updateCurrentCleaning() {
 
 
 // ============================================================
+// ESCAPE HTML
+// ============================================================
+
+function escapeHtml(value) {
+
+    if (value === null || value === undefined) {
+        return "";
+    }
+
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+// ============================================================
+// FORMAT COMPLETED DATE
+// ============================================================
+
+function formatCompletedDate(dateString) {
+
+    if (!dateString) {
+        return "";
+    }
+
+
+    const date =
+        new Date(dateString);
+
+
+    if (Number.isNaN(date.getTime())) {
+        return "";
+    }
+
+
+    const locale =
+        languageLocales[currentLanguage] ||
+        "en-GB";
+
+
+    return date.toLocaleString(
+        locale,
+        {
+            dateStyle: "short",
+            timeStyle: "short"
+        }
+    );
+
+}
+
+
+// ============================================================
 // DISPLAY WEEK
 // ============================================================
 
@@ -2154,19 +2735,13 @@ function displayWeek() {
         scheduleData.length === 0
     ) {
 
-        console.log(
-            "displayWeek: no schedule data"
-        );
-
         return;
 
     }
 
 
     if (selectedWeek < 0) {
-
         selectedWeek = 0;
-
     }
 
 
@@ -2194,26 +2769,7 @@ function displayWeek() {
         getISOWeek(date);
 
     const completed =
-        isCompleted(date);
-
-    const t =
-        translations[currentLanguage];
-
-
-    console.log(
-        "LANGUAGE:",
-        currentLanguage
-    );
-
-    console.log(
-        "TRANSLATION WEEK:",
-        t.week
-    );
-
-    console.log(
-        "ISO WEEK:",
-        isoWeek
-    );
+        isCompleted();
 
 
     // --------------------------------------------------------
@@ -2223,7 +2779,7 @@ function displayWeek() {
     if (weekNumberElement) {
 
         weekNumberElement.textContent =
-            `${t.week} ${isoWeek}`;
+            `${getTranslation("week")} ${isoWeek}`;
 
     }
 
@@ -2246,67 +2802,90 @@ function displayWeek() {
 
     if (scheduleList) {
 
-        scheduleList.innerHTML = `
+        let statusHtml = "";
 
-<div class="schedule-item">
 
-    <div>
+        if (completed) {
 
-        <strong>
-            ${formatDate(date)}
-        </strong>
+            const completedBy =
+                escapeHtml(
+                    schedule.completed_by || ""
+                );
 
-        <p>
-            ${t.responsible}:
-            ${person}
-        </p>
+            const completedAt =
+                formatCompletedDate(
+                    schedule.completed_at
+                );
 
-        <small>
-            08:00–18:00
-        </small>
 
-    </div>
+            statusHtml = `
 
-    <div class="schedule-status">
+                <div class="schedule-status">
 
-        ${
-            completed
-                ? `
                     <strong>
-                        ${t.completed}
+                        ${getTranslation("completed")}
                     </strong>
 
                     <div>
-                        ${t.completedBy || "Completed by"}:
-                        ${schedule.completed_by || ""}
+                        ${getTranslation("completedBy")}:
+                        ${completedBy}
                     </div>
 
                     ${
-                    schedule.completed_at
-                        ? `
+                completedAt
+                    ? `
                                 <div>
-                                    ${
-                            new Date(
-                                schedule.completed_at
-                            ).toLocaleString(
-                                languageLocales[
-                                    currentLanguage
-                                    ] || "en-GB"
-                            )
-                        }
+                                    ${escapeHtml(completedAt)}
                                 </div>
-                            `
-                        : ""
-                }
-                `
-                : t.notCompleted
+                              `
+                    : ""
+            }
+
+                </div>
+
+            `;
+
+        } else {
+
+            statusHtml = `
+
+                <div class="schedule-status">
+
+                    ${getTranslation("notCompleted")}
+
+                </div>
+
+            `;
+
         }
 
-    </div>
 
-</div>
+        scheduleList.innerHTML = `
 
-`;
+            <div class="schedule-item">
+
+                <div>
+
+                    <strong>
+                        ${escapeHtml(formatDate(date))}
+                    </strong>
+
+                    <p>
+                        ${getTranslation("responsible")}:
+                        ${escapeHtml(person)}
+                    </p>
+
+                    <small>
+                        08:00–18:00
+                    </small>
+
+                </div>
+
+                ${statusHtml}
+
+            </div>
+
+        `;
 
     }
 
@@ -2333,7 +2912,7 @@ function displayWeek() {
 
 
     // --------------------------------------------------------
-    // PREVIOUS / NEXT
+    // NAVIGATION
     // --------------------------------------------------------
 
     if (previousWeekButton) {
@@ -2352,21 +2931,11 @@ function displayWeek() {
 
     }
 
-
-    console.log(
-        "DISPLAY WEEK:",
-        selectedWeek,
-        "ISO:",
-        isoWeek,
-        "DATA:",
-        schedule
-    );
-
 }
 
 
 // ============================================================
-// APPLY LANGUAGE
+// APPLY TRANSLATIONS
 // ============================================================
 
 function applyLanguage() {
@@ -2384,31 +2953,35 @@ function applyLanguage() {
         currentLanguage;
 
 
+    // --------------------------------------------------------
+    // HEADER
+    // --------------------------------------------------------
+
     const headerTitle =
         document.querySelector(
             "header h1"
         );
 
     if (headerTitle) {
-
         headerTitle.textContent =
             t.title;
-
     }
 
 
     const headerSubtitle =
         document.querySelector(
-            "header p"
+            "header .header-text p"
         );
 
     if (headerSubtitle) {
-
         headerSubtitle.textContent =
             t.subtitle;
-
     }
 
+
+    // --------------------------------------------------------
+    // LANGUAGE BUTTON
+    // --------------------------------------------------------
 
     if (languageButton) {
 
@@ -2417,6 +2990,99 @@ function applyLanguage() {
 
     }
 
+
+    // --------------------------------------------------------
+    // LOGIN
+    // --------------------------------------------------------
+
+    if (emailInput) {
+
+        emailInput.placeholder =
+            t.email;
+
+    }
+
+
+    if (passwordInput) {
+
+        passwordInput.placeholder =
+            t.password;
+
+    }
+
+
+    if (loginButton) {
+
+        loginButton.textContent =
+            t.login;
+
+    }
+
+
+    if (forgotPasswordButton) {
+
+        forgotPasswordButton.textContent =
+            t.forgotPassword;
+
+    }
+
+
+    // --------------------------------------------------------
+    // RESET PASSWORD
+    // --------------------------------------------------------
+
+    const resetTitle =
+        resetPasswordForm?.querySelector(
+            "h2"
+        );
+
+    if (resetTitle) {
+
+        resetTitle.textContent =
+            t.resetPasswordTitle;
+
+    }
+
+
+    if (newPasswordInput) {
+
+        newPasswordInput.placeholder =
+            t.newPassword;
+
+    }
+
+
+    if (confirmPasswordInput) {
+
+        confirmPasswordInput.placeholder =
+            t.confirmPassword;
+
+    }
+
+
+    if (updatePasswordButton) {
+
+        updatePasswordButton.textContent =
+            t.updatePassword;
+
+    }
+
+
+    // --------------------------------------------------------
+    // LOGOUT
+    // --------------------------------------------------------
+
+    if (logoutButton) {
+
+        logoutButton.textContent =
+            t.logout;
+
+    }
+
+
+    // --------------------------------------------------------
+    // CURRENT CLEANING
+    // --------------------------------------------------------
 
     const currentTitle =
         document.querySelector(
@@ -2436,27 +3102,47 @@ function applyLanguage() {
             ".cleaning-info p"
         );
 
+
     if (info.length >= 3) {
 
         info[0].innerHTML = `
-        <strong>${t.date}:</strong>
-        <span id="cleaningDate"></span>
-        <span class="thursday-note">
-            ${t.thursdayNote}
-        </span>
-    `;
+
+            <strong>${t.date}:</strong>
+
+            <span id="cleaningDate"></span>
+
+            <span class="thursday-note">
+                ${t.thursdayNote}
+            </span>
+
+        `;
+
 
         info[1].innerHTML = `
-        <strong>${t.responsible}:</strong>
-        <span id="responsiblePerson"></span>
-    `;
+
+            <strong>${t.responsible}:</strong>
+
+            <span id="responsiblePerson"></span>
+
+        `;
+
 
         info[2].innerHTML = `
-        <strong>${t.time}:</strong>
-        <span id="cleaningTime">08:00–18:00</span> 
-    `;
+
+            <strong>${t.time}:</strong>
+
+            <span id="cleaningTime">
+                08:00–18:00
+            </span>
+
+        `;
 
     }
+
+
+    // --------------------------------------------------------
+    // SCHEDULE
+    // --------------------------------------------------------
 
     const scheduleTitle =
         document.querySelector(
@@ -2487,6 +3173,10 @@ function applyLanguage() {
     }
 
 
+    // --------------------------------------------------------
+    // TASK TITLE
+    // --------------------------------------------------------
+
     const taskTitle =
         document.querySelector(
             ".tasks h2"
@@ -2500,6 +3190,10 @@ function applyLanguage() {
     }
 
 
+    // --------------------------------------------------------
+    // TASK LABELS
+    // --------------------------------------------------------
+
     const labels =
         document.querySelectorAll(
             ".tasks label"
@@ -2510,16 +3204,22 @@ function applyLanguage() {
         function (label, index) {
 
             const span =
-                label.querySelector("span");
+                label.querySelector(
+                    "span"
+                );
+
+
+            const translationKey =
+                `task${index + 1}`;
 
 
             if (
                 span &&
-                t[`task${index + 1}`]
+                t[translationKey]
             ) {
 
                 span.textContent =
-                    t[`task${index + 1}`];
+                    t[translationKey];
 
             }
 
@@ -2527,12 +3227,20 @@ function applyLanguage() {
     );
 
 
+    // --------------------------------------------------------
+    // RE-RENDER DATA
+    // --------------------------------------------------------
+
     if (
         scheduleData &&
         scheduleData.length > 0
     ) {
 
         displayWeek();
+
+    } else {
+
+        updateCompleteButton();
 
     }
 
@@ -2553,6 +3261,7 @@ if (
         function (event) {
 
             event.stopPropagation();
+
 
             languageMenu.classList.toggle(
                 "open"
@@ -2589,31 +3298,34 @@ languageButtons.forEach(
 
 
                 if (
-                    translations[selectedLanguage]
+                    !translations[selectedLanguage]
                 ) {
 
-                    currentLanguage =
-                        selectedLanguage;
-
-
-                    localStorage.setItem(
-                        "cleaningLanguage",
-                        currentLanguage
-                    );
-
-
-                    if (languageMenu) {
-
-                        languageMenu.classList.remove(
-                            "open"
-                        );
-
-                    }
-
-
-                    applyLanguage();
+                    return;
 
                 }
+
+
+                currentLanguage =
+                    selectedLanguage;
+
+
+                localStorage.setItem(
+                    "cleaningLanguage",
+                    currentLanguage
+                );
+
+
+                if (languageMenu) {
+
+                    languageMenu.classList.remove(
+                        "open"
+                    );
+
+                }
+
+
+                applyLanguage();
 
             }
         );
@@ -2656,11 +3368,6 @@ if (previousWeekButton) {
 
                 selectedWeek--;
 
-                console.log(
-                    "PREVIOUS CLICK:",
-                    selectedWeek
-                );
-
                 displayWeek();
 
             }
@@ -2688,11 +3395,6 @@ if (nextWeekButton) {
 
                 selectedWeek++;
 
-                console.log(
-                    "NEXT CLICK:",
-                    selectedWeek
-                );
-
                 displayWeek();
 
             }
@@ -2718,8 +3420,17 @@ if (completeButton) {
 
 
             // ------------------------------------------------
-            // Frontend permission check
+            // FRONTEND CHECK
             // ------------------------------------------------
+
+            if (!currentUser) {
+
+                updateCompleteButton();
+
+                return;
+
+            }
+
 
             if (!canCompleteCleaning(date)) {
 
@@ -2737,7 +3448,7 @@ if (completeButton) {
             if (!schedule) {
 
                 console.error(
-                    "No schedule found for selected week"
+                    "No schedule found."
                 );
 
                 return;
@@ -2756,38 +3467,41 @@ if (completeButton) {
 
 
             // ------------------------------------------------
-            // SECURE COMPLETION
+            // SECURE SUPABASE RPC
             //
-            // Supabase RPC should enforce:
-            // - authenticated user
-            // - responsible_user_id = auth.uid()
-            // - correct cleaning window
-            // - not already completed
+            // The database function should verify:
+            //
+            // 1. auth.uid() is authenticated
+            // 2. auth.uid() = responsible_user_id
+            // 3. cleaning is within the allowed window
+            // 4. cleaning has not already been completed
+            //
             // ------------------------------------------------
 
             const {
                 data,
                 error
             } =
-                await supabaseClient
-                    .rpc(
-                        "complete_cleaning",
-                        {
-                            p_schedule_id:
-                            schedule.id
-                        }
-                    );
+                await supabaseClient.rpc(
+                    "complete_cleaning",
+                    {
+                        p_schedule_id:
+                        schedule.id
+                    }
+                );
 
 
             if (error) {
 
                 console.error(
-                    "Failed to mark cleaning as completed:",
+                    "Failed to complete cleaning:",
                     error
                 );
 
+
                 completeButton.disabled =
                     false;
+
 
                 return;
 
@@ -2795,13 +3509,13 @@ if (completeButton) {
 
 
             console.log(
-                "Cleaning marked as completed:",
+                "Cleaning completed:",
                 data
             );
 
 
             // ------------------------------------------------
-            // UPDATE LOCAL DATA
+            // UPDATE LOCAL SCHEDULE
             // ------------------------------------------------
 
             if (data) {
@@ -2849,7 +3563,7 @@ document.addEventListener(
 
 
         // ------------------------------------------------
-        // Only responsible user can interact.
+        // USER MUST BE RESPONSIBLE
         // ------------------------------------------------
 
         if (!isCurrentUserResponsible()) {
@@ -2862,12 +3576,10 @@ document.addEventListener(
 
 
         // ------------------------------------------------
-        // Cannot modify outside cleaning window.
+        // CHECK CLEANING WINDOW
         // ------------------------------------------------
 
-        if (
-            !canCompleteCleaning(date)
-        ) {
+        if (!canCompleteCleaning(date)) {
 
             loadTasks(date);
 
@@ -2890,7 +3602,7 @@ document.addEventListener(
 
 
 // ============================================================
-// LOAD CLEANING SCHEDULE FROM SUPABASE
+// LOAD SCHEDULE FROM SUPABASE
 // ============================================================
 
 async function loadScheduleFromSupabase() {
@@ -2925,7 +3637,16 @@ async function loadScheduleFromSupabase() {
             await supabaseClient
                 .from("cleaning_schedule")
                 .select(
-                    "id, cleaning_date, responsible, responsible_user_id, completed, completed_at, completed_by, completed_by_user_id"
+                    `
+                    id,
+                    cleaning_date,
+                    responsible,
+                    responsible_user_id,
+                    completed,
+                    completed_at,
+                    completed_by,
+                    completed_by_user_id
+                    `
                 )
                 .order(
                     "cleaning_date",
@@ -2965,11 +3686,6 @@ async function loadScheduleFromSupabase() {
             allData.concat(data);
 
 
-        console.log(
-            `Loaded ${allData.length} cleaning schedule rows`
-        );
-
-
         if (
             data.length <
             pageSize
@@ -2991,18 +3707,12 @@ async function loadScheduleFromSupabase() {
 
 
     console.log(
-        "Cleaning schedule loaded from Supabase:",
-        scheduleData
+        "Schedule loaded:",
+        scheduleData.length,
+        "rows"
     );
 
 
-    console.log(
-        "Total schedule rows:",
-        scheduleData.length
-    );
-
-
-    // Start at first schedule entry.
     selectedWeek =
         0;
 
@@ -3023,11 +3733,15 @@ async function startApplication() {
     );
 
 
+    // --------------------------------------------------------
+    // Apply language immediately
+    // --------------------------------------------------------
+
     applyLanguage();
 
 
     // --------------------------------------------------------
-    // Check whether a Supabase session already exists.
+    // Check existing Supabase session
     // --------------------------------------------------------
 
     const {
@@ -3038,144 +3752,43 @@ async function startApplication() {
         await supabaseClient.auth.getSession();
 
 
-    if (!session) {
+    if (session) {
 
         console.log(
-            "No active session. Waiting for login."
-        );
-
-        updateAuthUI(null);
-
-        return;
-
-    }
-
-
-    console.log(
-        "Active Supabase session found:",
-        session.user.email
-    );
-
-
-    // Make sure currentUser is set.
-    updateAuthUI(
-        session.user
-    );
-
-
-    await loadScheduleFromSupabase();
-
-}
-
-
-// ============================================================
-// AUTH STATE
-// ============================================================
-
-supabaseClient.auth.onAuthStateChange(
-    async function (event, session) {
-
-        console.log(
-            "Auth event:",
-            event
+            "Active session found:",
+            session.user.email
         );
 
 
         updateAuthUI(
-            session
-                ? session.user
-                : null
+            session.user
         );
 
 
-        // ----------------------------------------------------
-        // User signed out
-        // ----------------------------------------------------
+        await loadScheduleFromSupabase();
 
-        if (
-            event === "SIGNED_OUT"
-        ) {
+    } else {
 
-            scheduleData =
-                [];
-
-            selectedWeek =
-                0;
+        console.log(
+            "No active session."
+        );
 
 
-            if (scheduleList) {
-
-                scheduleList.innerHTML =
-                    "";
-
-            }
-
-
-            if (weekNumberElement) {
-
-                weekNumberElement.textContent =
-                    "";
-
-            }
-
-
-            if (weekRangeElement) {
-
-                weekRangeElement.textContent =
-                    "";
-
-            }
-
-
-            if (completeButton) {
-
-                completeButton.disabled =
-                    true;
-
-            }
-
-
-            return;
-
-        }
+        updateAuthUI(null);
 
 
         // ----------------------------------------------------
-        // User signed in
+        // We still load the schedule.
+        //
+        // Users can see the schedule without logging in,
+        // but only the responsible logged-in user can complete.
         // ----------------------------------------------------
 
-        if (
-            event === "SIGNED_IN" &&
-            session
-        ) {
-
-            console.log(
-                "User signed in. Loading schedule..."
-            );
-
-
-            await loadScheduleFromSupabase();
-
-            return;
-
-        }
-
-
-        // ----------------------------------------------------
-        // Other auth/session changes
-        // ----------------------------------------------------
-
-        if (
-            session &&
-            scheduleData.length > 0
-        ) {
-
-            displayWeek();
-
-        }
+        await loadScheduleFromSupabase();
 
     }
-);
+
+}
 
 
 // ============================================================
