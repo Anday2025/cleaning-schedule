@@ -1021,3 +1021,35 @@ section h2 {
         font-size: 14px;
         margin-left: 4px;
     }
+
+
+    #forgotPasswordButton {
+
+        border: none;
+
+        background: #2563eb;
+
+        color: white;
+
+        padding: 9px 12px;
+
+        border-radius: 7px;
+
+        cursor: pointer;
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+        white-space: nowrap;
+
+        transition: background 0.2s ease;
+
+    }
+
+
+    #forgotPasswordButton:hover {
+
+        background: #1d4ed8;
+
+    }
