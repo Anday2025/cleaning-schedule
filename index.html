@@ -119,6 +119,7 @@
 
 
       <!-- AUTHENTICATION -->
+      <!-- AUTHENTICATION -->
 
       <div
               id="authSection"
@@ -133,6 +134,7 @@
           <input
                   type="email"
                   id="emailInput"
+                  data-i18n-placeholder="email"
                   placeholder="E-post"
                   autocomplete="email"
                   required
@@ -141,6 +143,7 @@
           <input
                   type="password"
                   id="passwordInput"
+                  data-i18n-placeholder="password"
                   placeholder="Passord"
                   autocomplete="current-password"
                   required
@@ -149,6 +152,7 @@
           <button
                   id="loginButton"
                   type="submit"
+                  data-i18n="login"
           >
             Logg inn
           </button>
@@ -157,6 +161,7 @@
                   id="forgotPasswordButton"
                   type="button"
                   class="forgot-password-button"
+                  data-i18n="forgotPassword"
           >
             Glemt passord?
           </button>
@@ -203,6 +208,8 @@
           <p id="resetPasswordMessage"></p>
 
         </form>
+
+
         <!-- LOGGED IN USER -->
 
         <div
@@ -210,15 +217,16 @@
                 style="display: none;"
         >
 
-                    <span class="user-icon">
-                        👤
-                    </span>
+    <span class="user-icon">
+      👤
+    </span>
 
           <span id="loggedInUser"></span>
 
           <button
                   id="logoutButton"
                   type="button"
+                  data-i18n="logout"
           >
             Logg ut
           </button>
